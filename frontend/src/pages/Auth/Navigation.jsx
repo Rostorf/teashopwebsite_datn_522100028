@@ -9,7 +9,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLoginMutation } from '../../redux/api/userApiSlice.js';
+import { useLogoutMutation } from '../../redux/api/userApiSlice.js';
 import { logout } from '../../redux/features/auth/authSlice.js';
 
 const Navigation = () => {
@@ -17,16 +17,11 @@ const Navigation = () => {
     const {userInfo} = useSelector(state => state.auth)
 
     const [visible, setVisible] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen)
-    }
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [logoutApiCall] = useLoginMutation()
+    const [logoutApiCall] = useLogoutMutation()
 
     const logoutHandler = async() => {
         try {
@@ -73,13 +68,33 @@ const Navigation = () => {
             
             <div className='group relative'>
                 <PersonOutlineOutlinedIcon className='w-5 cursor-pointer text-base' />
-                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                        <p className='cursor-pointer hover:text-black font-mono'>Trang cá nhân</p>
-                        <p className='cursor-pointer hover:text-black font-mono'>Đơn hàng</p>
-                        <p className='cursor-pointer hover:text-black font-mono'>Đăng xuất</p>
+                {userInfo && (
+                    <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 text-center'>
+                        <div className='flex flex-col gap-2 w-56 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
+                            <Link to='/profile' className='cursor-pointer hover:text-black font-mono'>Trang cá nhân</Link>
+                            <Link to='/order' className='cursor-pointer hover:text-black font-mono'>Đơn hàng</Link>
+                            {userInfo.isAdmin && (
+                                <>
+                                    <Link to='/admin/dashboard' className='cursor-pointer hover:text-black font-mono'>Dashboard</Link>
+                                    <Link to='/admin/productlist' className='cursor-pointer hover:text-black font-mono'>Quản lý sản phẩm</Link>
+                                    <Link to='/admin/userlist' className='cursor-pointer hover:text-black font-mono'>Quản lý người dùng</Link>
+                                    <Link to='/admin/categorylist' className='cursor-pointer hover:text-black font-mono'>Quản lý danh mục</Link>
+                                    <Link to='/admin/orderlist' className='cursor-pointer hover:text-black font-mono'>Quản lý đơn hàng</Link>
+                                </>
+                            )}
+                            <button onClick={logoutHandler} className='cursor-pointer hover:text-black font-mono'>Đăng xuất</button>
+                        </div>
                     </div>
-                </div>
+                )}
+                
+                {!userInfo && (
+                    <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+                        <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
+                            <Link to='/login' className='cursor-pointer hover:text-black font-mono'>Đăng nhập</Link>
+                            <Link to='/register' className='cursor-pointer hover:text-black font-mono'>Đăng ký</Link>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <Link to='/favorite'>
