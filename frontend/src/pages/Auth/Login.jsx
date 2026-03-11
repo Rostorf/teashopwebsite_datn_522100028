@@ -5,6 +5,7 @@ import { useLoginMutation } from "../../redux/api/userApiSlice"
 import { setCredientials } from "../../redux/features/auth/authSlice"
 import { toast } from "react-toastify"
 import Loader from "../../components/Loader"
+import { assets } from "../../assets/assets"
 
 const Login = () => {
 
@@ -41,11 +42,11 @@ const Login = () => {
 
   return (
     <div>
-        <section className="pl-[10rem] flex flex-wrap">
+        <section className="pl-[5rem] flex flex-wrap">
             <div className="mr-[4rem] mt-[5rem]">
                 <h1 className="text-2xl font-semibold mb-4 font-mono">Đăng nhập</h1>
 
-                <form onSubmit={submitHandler} className="container w-[40rem]" action="">
+                <form onSubmit={submitHandler} className="container w-[38rem]">
                     <div className="my-[2rem]">
                         <label htmlFor="email" className="block text-sm font-medium font-mono">Email</label>
                         <input type="email" id="email" className="mt-1 p-2 border rounded w-full" value={email} onChange={e => setEmail(e.target.value)} />
@@ -54,7 +55,7 @@ const Login = () => {
                         <label htmlFor="password" className="block text-sm font-medium font-mono">Mật khẩu</label>
                         <input type="password" id="password" className="mt-1 p-2 border rounded w-full" value={password} onChange={e => setPassword(e.target.value)} />
                     </div>
-                    <button disabled={isLoading} type="submit" className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer my-[1rem]">{isLoading ? "Đang đăng nhập" : "Đăng nhập"}</button>
+                    <button disabled={isLoading} type="submit" className="bg-green-500 hover:bg-green-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem]">{isLoading ? "Đang chạy..." : "Đăng nhập"}</button>
                 
                     {isLoading && <Loader />}
                 </form>
@@ -65,6 +66,7 @@ const Login = () => {
                     </p>
                 </div>
             </div>
+            <img src={assets.introduction} alt="" className="h-[36rem] w-[53%] xl:block md:hidden sm:hidden rounded-lg mt-[3rem]" />
         </section>
     </div>
   )
