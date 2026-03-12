@@ -42,7 +42,7 @@ const ProductList = () => {
                 toast.error('Thêm sản phẩm thất bại. Vui lòng thử lại.')
             } else {
                 toast.success(`${data.name} được tạo thành công.`);
-                navigate('/')
+                navigate('/admin/allproductslist')
             }
         } catch (error) {
             console.log(error)
@@ -69,7 +69,7 @@ const ProductList = () => {
         <div className="flex flex-col md:flex-row">
             <AdminMenu/>
             <div className="md:w-3/4 p-3">
-                <div className="h-12">Thêm sản phẩm</div>
+                <div className="text-xl font-bold h-12">Thêm sản phẩm</div>
                 {imageUrl && (
                     <div className="text-center">
                         <img src={imageUrl} alt="product" className="block mx-auto max-h-[200px]" />

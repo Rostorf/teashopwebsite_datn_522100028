@@ -104,10 +104,10 @@ const UpdateProduct = () => {
         <div className="flex flex-col md:flex-row">
             <AdminMenu/>
             <div className="md:w-3/4 p-3">
-                <div className="h-12">Cập nhật sản phẩm</div>
+                <div className="text-xl font-bold h-12">Cập nhật sản phẩm</div>
                 {image && (
                     <div className="text-center">
-                        <img src={image} alt="product" className="block mx-auto max-h-[200px]" />
+                        <img src={image} alt="product" className="block mx-auto w-full h-[40%]" />
                     </div>
                 )}
 

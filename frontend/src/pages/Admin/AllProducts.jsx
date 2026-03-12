@@ -19,7 +19,7 @@ const AllProducts = () => {
     <div className="container mx-[9rem]">
         <div className="flex flex-col md:flex-row">
           <div className="p-3">
-            <div className="ml-[2rem] text-xl font-bold h-12">
+            <div className="text-xl font-bold h-12">
               Tất cả sản phẩm ({products.length})
             </div>
 
@@ -28,16 +28,16 @@ const AllProducts = () => {
                 <Link key={product._id} to={`/admin/product/update/${product._id}`} className="block mb-4 overflow-hidden">
                   <div className="flex">
                     <img src={product.image} alt={product.name} className="w-[10rem] object-cover" />
-                    <div className="p-4 flex flex-col justify-around">
+                    <div className="mx-6 p-4 flex flex-col justify-around">
                       <div className="flex justify-between">
                         <h5 className="text-xl font-semibold mb-2">
                           {product?.name}
                         </h5>
                         <p className="text-gray-800 text-sm">
-                            {moment(product.createAt).format("Do MMMM YYYY")}
+                            {moment(product.createdAt).format("DD/MM/YYYY")}
                         </p>
                      </div>
-                     <p className="text-gray-800 xl:w-[20rem] md:w-[10rem] sm:w-[5rem] text-sm mb-4">
+                     <p className="text-gray-800 xl:w-[25rem] md:w-[10rem] sm:w-[5rem] text-sm mb-4">
                         {product?.description?.substring(0, 160)}...
                      </p>
 

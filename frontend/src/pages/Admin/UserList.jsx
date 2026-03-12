@@ -11,6 +11,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import EditSquareIcon from '@mui/icons-material/EditSquare';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AdminMenu from "./AdminMenu"
 
 const UserList = () => {
     const {data: users, refetch, isLoading, error} = useGetUsersQuery()
@@ -58,6 +59,7 @@ const UserList = () => {
 
   return (
     <div className="p-4">
+        <AdminMenu/>
         <h1 className="text-2xl font-semibold mb-4">Danh sách người dùng</h1>
         {isLoading ? (<Loader />) : error ? (<Message variant='danger'>{error?.data.message || error.message}</Message>) : (
             <div className="flex flex-col md:flex-row">
