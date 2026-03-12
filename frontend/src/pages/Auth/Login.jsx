@@ -66,7 +66,7 @@ const Login = () => {
                     </p>
                 </div>
             </div>
-            <img src={assets.introduction} alt="" className="h-[36rem] w-[53%] xl:block md:hidden sm:hidden rounded-lg mt-[3rem]" />
+            <img src={assets.introduction} alt="" className="h-[42%] w-[53%] xl:block md:hidden sm:hidden rounded-lg mt-[3rem]" />
         </section>
     </div>
   )
