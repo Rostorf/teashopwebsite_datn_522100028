@@ -75,11 +75,7 @@ const Navigation = () => {
                             <Link to='/order' className='cursor-pointer hover:text-black font-mono'>Đơn hàng</Link>
                             {userInfo.isAdmin && (
                                 <>
-                                    <Link to='/admin/dashboard' className='cursor-pointer hover:text-black font-mono'>Dashboard</Link>
-                                    <Link to='/admin/productlist' className='cursor-pointer hover:text-black font-mono'>Quản lý sản phẩm</Link>
-                                    <Link to='/admin/userlist' className='cursor-pointer hover:text-black font-mono'>Quản lý người dùng</Link>
-                                    <Link to='/admin/categorylist' className='cursor-pointer hover:text-black font-mono'>Quản lý danh mục</Link>
-                                    <Link to='/admin/orderlist' className='cursor-pointer hover:text-black font-mono'>Quản lý đơn hàng</Link>
+                                    <Link to='/admin/allproductslist' className='cursor-pointer hover:text-black font-mono'>Trang quản trị</Link>
                                 </>
                             )}
                             <button onClick={logoutHandler} className='cursor-pointer hover:text-black font-mono'>Đăng xuất</button>

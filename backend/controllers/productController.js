@@ -47,7 +47,7 @@ const updateProductDetails = asyncHandler(async(req, res) => {
                 return res.json({error: "Số lượng sản phẩm trống"})
         }
 
-        const product = await Product.findByIdAndUpdate(req.params.id, {...req.fields}, {new: true});
+        const product = await Product.findByIdAndUpdate(req.params.id, {...req.fields}, { returnDocument: 'after' });
 
         await product.save();
         res.json(product);

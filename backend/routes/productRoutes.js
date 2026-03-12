@@ -23,7 +23,7 @@ router.route('/allproducts').get(fetchAllProducts);
 router.route('/:id/reviews').post(authenticate, authorizeAdmin, checkId, addProductReview);
 
 router.get('/top', fetchTopProducts);
-router.get('/new', fetchNewProducts)
+router.get('/new', fetchNewProducts);
 
 router.route('/:id')
 .get(fetchProductById)
