@@ -47,7 +47,7 @@ const Register = () => {
     }
 
   return (
-    <section className="pl-[5rem] flex flex-wrap">
+    <section className="pl-[5rem] flex flex-wrap my-[4rem]">
         <div className="mr-[4rem] mt-[5rem]">
             <h1 className="text-2xl font-semibold mb-4">Đăng ký</h1>
             <form onSubmit={submitHandler} className="container w-[38rem]">
@@ -79,7 +79,7 @@ const Register = () => {
                 </div>
             </form>
         </div>
-        <img src={assets.introduction} alt="" className="h-[42%] w-[53%] xl:block md:hidden sm:hidden rounded-lg mt-[3rem]" />
+        <img src={assets.introduction} alt="" className="h-[42%] w-[53%] xl:block md:hidden sm:hidden rounded-lg mt-[1rem]" />
     </section>
   )
 }

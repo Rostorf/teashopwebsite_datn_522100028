@@ -11,7 +11,7 @@ const AdminMenu = () => {
 
   return (
     <>
-        <button className={`${isMenuOpen ? "top-2 right-2" : "top-5 right-7"} bg-black p-2 fixed rounded-lg`} onClick={toggleMenu}>
+        <button className={`${isMenuOpen ? "top-2 right-2" : "top-5 right-7"} bg-black p-2 fixed rounded-lg z-50`} onClick={toggleMenu}>
             {isMenuOpen ? (
                     <CloseIcon sx={{ color: '#FFFFFF' }} />
             ) : (
@@ -23,7 +23,7 @@ const AdminMenu = () => {
             )}
         </button>
         {isMenuOpen && (
-            <section className="bg-slate-100 p-4 fixed right-7 top-5">
+            <section className="bg-slate-100 p-4 fixed right-7 top-5 z-40">
                 <ul className="list-none mt-2">
                     <li>
                         <NavLink className="list-item py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/dashboard' style={({isActive}) => ({

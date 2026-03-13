@@ -58,11 +58,11 @@ const UserList = () => {
     }
 
   return (
-    <div className="p-4">
-        <AdminMenu/>
-        <h1 className="text-2xl font-semibold mb-4">Danh sách người dùng</h1>
+    <div className="mt-10 mb-[25rem]">
+        <h1 className="text-2xl font-semibold mb-4 ml-[5rem]">Danh sách người dùng</h1>
         {isLoading ? (<Loader />) : error ? (<Message variant='danger'>{error?.data.message || error.message}</Message>) : (
             <div className="flex flex-col md:flex-row">
+                <AdminMenu/>
                 {/* Admin Menu */}
                 <table className="w-full md:w-4/5 mx-auto">
                     <thead>
@@ -71,7 +71,6 @@ const UserList = () => {
                             <th className="px-4 py-2 text-left">Tên đăng nhập</th>
                             <th className="px-4 py-2 text-left">Email</th>
                             <th className="px-4 py-2 text-left">Admin</th>
-                            <th className="px-4 py-2 text-left"></th>
                         </tr>
                     </thead>
                     <tbody>

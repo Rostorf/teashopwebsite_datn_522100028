@@ -47,25 +47,25 @@ const Profile = () => {
                 <form onSubmit={submitHandler}>
                     <div className="mb-4">
                         <label className="block mb-2">Tên đăng nhập</label>
-                        <input type="text" placeholder="Nhập tên đăng nhập" className="form-input p-4 rounded-sm w-full bg-gray-200" value={username} onChange={e => setUsername(e.target.value)} />
+                        <input type="text" placeholder="Nhập tên đăng nhập" className="form-input p-4 my-2 rounded-sm w-full bg-gray-200" value={username} onChange={e => setUsername(e.target.value)} />
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2">Email</label>
-                        <input type="email" placeholder="Nhập email" className="form-input p-4 rounded-sm w-full bg-gray-200" value={email} onChange={e => setEmail(e.target.value)} />
+                        <input type="email" placeholder="Nhập email" className="form-input p-4 my-2 rounded-sm w-full bg-gray-200" value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2">Mật khẩu</label>
-                        <input type="password" placeholder="Nhập mật khẩu" className="form-input p-4 rounded-sm w-full bg-gray-200" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input type="password" placeholder="Nhập mật khẩu" className="form-input p-4 my-2 rounded-sm w-full bg-gray-200" value={password} onChange={e => setPassword(e.target.value)} />
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2">Nhập lại mật khẩu</label>
-                        <input type="password" placeholder="Nhập lại mật khẩu" className="form-input p-4 rounded-sm w-full bg-gray-200" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                        <input type="password" placeholder="Nhập lại mật khẩu" className="form-input p-4 my-2 rounded-sm w-full bg-gray-200" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                     </div>
 
                     <div className="flex justify-between">
-                        <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Cập nhật</button>
+                        <button type="submit" className="bg-green-500 text-white py-2 px-4 my-10 rounded hover:bg-green-600">Cập nhật</button>
 
-                        <Link to='user-orders' className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
+                        <Link to='user-orders' className="bg-green-500 text-white py-2 px-4 my-10 rounded hover:bg-green-600">
                             Đơn hàng của tôi
                         </Link>
                     </div>

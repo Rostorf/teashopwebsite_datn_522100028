@@ -2,14 +2,17 @@ import { Outlet } from 'react-router-dom';
 import Navigation from './pages/Auth/Navigation';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+    <div className=''>
       <ToastContainer />
       <Navigation />
-      <main className="py-3">
+      <main className="py-[6rem]">
         <Outlet />
+        <hr />
+      <Footer/>
       </main>
     </div>
   )

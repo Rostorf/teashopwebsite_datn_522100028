@@ -42,7 +42,7 @@ const Login = () => {
 
   return (
     <div>
-        <section className="pl-[5rem] flex flex-wrap">
+        <section className="pl-[5rem] flex flex-wrap my-[4rem]">
             <div className="mr-[4rem] mt-[5rem]">
                 <h1 className="text-2xl font-semibold mb-4 font-mono">Đăng nhập</h1>
 
@@ -66,7 +66,7 @@ const Login = () => {
                     </p>
                 </div>
             </div>
-            <img src={assets.introduction} alt="" className="h-[42%] w-[53%] xl:block md:hidden sm:hidden rounded-lg mt-[3rem]" />
+            <img src={assets.introduction} alt="" className="h-[42%] w-[53%] xl:block md:hidden sm:hidden rounded-lg mt-[1rem]" />
         </section>
     </div>
   )

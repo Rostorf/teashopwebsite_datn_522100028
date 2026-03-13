@@ -16,7 +16,7 @@ const AllProducts = () => {
     }
   return (
     <>
-    <div className="container mx-[9rem]">
+    <div className="container mx-[9rem] mt-10 mb-40">
         <div className="flex flex-col md:flex-row">
           <div className="p-3">
             <div className="text-xl font-bold h-12">
@@ -31,7 +31,7 @@ const AllProducts = () => {
                     <div className="mx-6 p-4 flex flex-col justify-around">
                       <div className="flex justify-between">
                         <h5 className="text-xl font-semibold mb-2">
-                          {product?.name}
+                          {product?.name?.substring(0, 20)}...
                         </h5>
                         <p className="text-gray-800 text-sm">
                             {moment(product.createdAt).format("DD/MM/YYYY")}

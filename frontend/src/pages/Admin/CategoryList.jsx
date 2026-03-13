@@ -83,7 +83,7 @@ const CategoryList = () => {
     }
 
   return (
-    <div className="ml-[10rem] flex flex-col md:flex-row">
+    <div className="ml-[10rem] flex flex-col md:flex-row mt-10">
         <AdminMenu/>
         <div className="md:w-3/4 p-3">
             <div className="h-12">Quản lý danh mục</div>
