@@ -10,7 +10,7 @@ function MoreInfo() {
           <div className='flex items-center gap-4'>
             <p className='text-black'><LocalShippingIcon fontSize='large'/></p>
             <div>
-              <h4 className='text-base text-black capitalize font-inter italic font-medium mb-1'>Giao hàng miễn phí</h4>
+              <h4 className='text-base text-black capitalize font-inter italic font-medium mb-1'>Giao hàng nhanh chóng</h4>
               
               <h4 className='text-base text-lime-400 capitalize font-inter italic font-medium'>Mọi lúc mọi nơi</h4>
             </div>

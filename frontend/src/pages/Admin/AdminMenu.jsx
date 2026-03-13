@@ -26,42 +26,42 @@ const AdminMenu = () => {
             <section className="bg-slate-100 p-4 fixed right-7 top-5 z-40">
                 <ul className="list-none mt-2">
                     <li>
-                        <NavLink className="list-item py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/dashboard' style={({isActive}) => ({
+                        <NavLink className="py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/dashboard' style={({isActive}) => ({
                             color: isActive ? "black" : "grey",
                         })}>
-                            Admin Dashboard
+                            Thống kê doanh thu
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="list-item py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/categorylist' style={({isActive}) => ({
+                        <NavLink className="py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/categorylist' style={({isActive}) => ({
                             color: isActive ? "black" : "grey",
                         })}>
                             Danh sách danh mục
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="list-item py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/productlist' style={({isActive}) => ({
+                        <NavLink className="py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/productlist' style={({isActive}) => ({
                             color: isActive ? "black" : "grey",
                         })}>
                             Tạo sản phẩm mới
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="list-item py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/allproductslist' style={({isActive}) => ({
+                        <NavLink className="py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/allproductslist' style={({isActive}) => ({
                             color: isActive ? "black" : "grey",
                         })}>
                             Danh sách sản phẩm
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="list-item py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/userlist' style={({isActive}) => ({
+                        <NavLink className="py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/userlist' style={({isActive}) => ({
                             color: isActive ? "black" : "grey",
                         })}>
                             Quản lý người dùng
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="list-item py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/orderlist' style={({isActive}) => ({
+                        <NavLink className="py-2 px-3 block mb-5 hover:bg-green-400 rounded-sm" to='/admin/orderlist' style={({isActive}) => ({
                             color: isActive ? "black" : "grey",
                         })}>
                             Quản lý đơn hàng

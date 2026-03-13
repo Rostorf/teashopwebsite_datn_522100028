@@ -101,7 +101,7 @@ const fetchProductById = asyncHandler(async(req, res) => {
 
 const fetchAllProducts = asyncHandler(async(req, res) => {
     try {
-        const products = await Product.find({}).populate('category').limit(12).sort({createdAt: -1})
+        const products = await Product.find({}).populate('category').limit(20).sort({createdAt: -1})
 
         res.json(products)
     } catch (error) {
@@ -166,4 +166,20 @@ const fetchNewProducts = asyncHandler(async(req, res) => {
     }
 })
 
-export { addProduct, updateProductDetails, deleteProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview, fetchTopProducts, fetchNewProducts };
+const filterProducts = asyncHandler(async(req, res) => {
+    try {
+        const {checked, radio} = req.body
+
+        let args = {}
+        if(checked.length > 0) args.category = checked
+        if(checked.radio > 0) args.price = {$gte: radio[0], $lte: radio[1]}
+
+        const products = await Product.find(args)
+        res.json(products)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: "Lỗi máy chủ"})
+    }
+})
+
+export { addProduct, updateProductDetails, deleteProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview, fetchTopProducts, fetchNewProducts, filterProducts };

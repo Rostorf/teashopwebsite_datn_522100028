@@ -16,6 +16,7 @@ import FavoritesCount from '../Products/FavoritesCount.jsx';
 const Navigation = () => {
     
     const {userInfo} = useSelector(state => state.auth)
+    const {cartItems} = useSelector(state => state.cart)
 
     const [visible, setVisible] = useState(false);
 
@@ -104,7 +105,13 @@ const Navigation = () => {
 
                 <Link to='/cart' className='relative'>
                     <ShoppingCartOutlinedIcon className='w-5 cursor-pointer text-base'/>
-                    <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-red-500 text-white aspect-square rounded-full text-[8px]'>10</p>
+                        {cartItems.length > 0 && (
+                            <span>
+                                <span className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-red-500 text-white aspect-square rounded-full text-[12px]'>
+                                    {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                                </span>
+                            </span>
+                        )}
                 </Link>
 
                 <button onClick={() => setVisible(true)} className='w-5 cursor-pointer sm:hidden'>

@@ -11,7 +11,7 @@ const App = () => {
       <Navigation />
       <main className="py-[6rem]">
         <Outlet />
-        <hr />
+        <hr className='mt-[3rem]'/>
       <Footer/>
       </main>
     </div>

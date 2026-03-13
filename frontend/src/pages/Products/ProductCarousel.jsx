@@ -56,7 +56,7 @@ const ProductCarousel = () => {
                                     <RateReviewOutlinedIcon className="mr-1" />Lượt Đánh giá: {numReviews}
                                 </h1>
                                 <h1 className="flex items-center mb-6">
-                                    <StarBorderOutlinedIcon className="mr-1"/>Lượt sao: {Math.round(rating)}
+                                    <StarBorderOutlinedIcon className="mr-1"/>Lượt sao: {rating}
                                 </h1>
                             </div>
                         </div>

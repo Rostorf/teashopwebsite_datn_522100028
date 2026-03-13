@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom"
-import { useGetProductsQuery } from "./redux/api/productApiSlice"
-import Loader from "./components/Loader"
-import Banner from "./components/Banner"
-import MoreInfo from "./components/MoreInfo"
-import FeaturedProducts from "./components/FeaturedProducts"
-import Message from "./components/Message"
-import Product from "./pages/Products/Product"
+import { useGetProductsQuery } from "../redux/api/productApiSlice"
+import Loader from "../components/Loader"
+import Banner from "../components/Banner"
+import MoreInfo from "../components/MoreInfo"
+import FeaturedProducts from "../components/FeaturedProducts"
+import Message from "../components/Message"
+import Product from "./Products/Product"
 
 const Home = () => {
   const {keyword} = useParams()
@@ -34,13 +34,16 @@ const Home = () => {
 
           <div>
             <div className="flex justify-center flex-wrap mt-[2rem]">
+
               {data.products.map((product) => (
                 <div key={product._id}>
                   <Product product={product} />
                 </div>
               ))}
+
             </div>
           </div>
+          
           </>
         )} 
       </div>
