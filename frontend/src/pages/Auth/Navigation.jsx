@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../../redux/api/userApiSlice.js';
 import { logout } from '../../redux/features/auth/authSlice.js';
+import FavoritesCount from '../Products/FavoritesCount.jsx';
 
 const Navigation = () => {
     
@@ -96,13 +97,14 @@ const Navigation = () => {
                     )}
                 </div>
 
-                <Link to='/favorite'>
-                    <FavoriteBorderOutlinedIcon />
+                <Link to='/favorite' className='relative'>
+                    <FavoriteBorderOutlinedIcon className='w-5 cursor-pointer text-base'/>
+                    <FavoritesCount />
                 </Link>
 
                 <Link to='/cart' className='relative'>
                     <ShoppingCartOutlinedIcon className='w-5 cursor-pointer text-base'/>
-                    <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>10</p>
+                    <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-red-500 text-white aspect-square rounded-full text-[8px]'>10</p>
                 </Link>
 
                 <button onClick={() => setVisible(true)} className='w-5 cursor-pointer sm:hidden'>
