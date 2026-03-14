@@ -23,6 +23,7 @@ uploads
 *.njsproj
 *.sln
 *.sw?
+vnpay.json
 
 ### dotenv ###
 .env
