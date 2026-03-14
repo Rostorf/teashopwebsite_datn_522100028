@@ -17,18 +17,18 @@ export const orderApiSlice = apiSlice.injectEndpoints({
             })
         }),
 
-        payOrder: builder.mutation({
-            query: ({orderId, details}) => ({
-                url: `${ORDERS_URL}/${orderId}/pay`,
-                method: 'PUT',
-                body: details
-            })
+        createVnpayUrl: builder.mutation({
+            query: (orderId) => ({
+                url: `${ORDERS_URL}/${orderId}/vnpay-url`,
+                method: "GET",
+            }),
         }),
 
-        getVNPay: builder.query({
-            query: () => ({
-                url: VNPAY_URL
-            })
+        verifyVnpayReturn: builder.mutation({
+            query: (data) => ({
+                url: `${ORDERS_URL}/vnpay-return?${data.queryString}`,
+                method: "PUT",
+            }),
         }),
 
         getMyOrders: builder.query({
@@ -73,8 +73,8 @@ export const {
     // -------------------
     useCreateOrderMutation,
     useGetOrderDetailsQuery,
-    usePayOrderMutation,
-    useGetVNPayQuery,
+    useCreateVnpayUrlMutation,
+    useVerifyVnpayReturnMutation,
     useGetMyOrdersQuery,
     useDeliverOrderMutation,
     useGetOrdersQuery
