@@ -10,7 +10,7 @@ const OrderList = () => {
   return (
     <div className="container mx-auto mt-12">
         {isLoading ? (<Loader />) : error ? (<Message variant='danger'>{error?.data?.message || error.error}</Message>) : (
-            <table className="container mx-auto my-5">
+            <table className="container mx-auto my-5 border-separate border-spacing-y-6">
                 <AdminMenu/>
                 <thead className="w-full">
                     <tr className="mb-[5rem]">
@@ -28,7 +28,7 @@ const OrderList = () => {
                     {orders.map((order) => (
                         <tr key={order._id}>
                             <img src={order.orderItems[0].image} alt={order._id} className="w-[5rem]" />
-                            <td className="py-5">{order._id}</td>
+                            <td className="py-2">{order._id}</td>
                             <td className="py-2">{order.user ? order.user.username : "N/A"}</td>
                             <td className="py-2">{order.createdAt ? order.createdAt.substring(0, 10) : "N/A"}</td>
                             <td className="py-2">{order.totalPrice} VND</td>
@@ -49,7 +49,7 @@ const OrderList = () => {
 
                             <td className="py-2">
                                 <Link to={`/order/${order._id}`}>
-                                    Xem chi tiết
+                                    <button className="bg-blue-400 text-white py-2 px-3 rounded">Xem chi tiết</button>
                                 </Link>
                             </td>
                         </tr>
