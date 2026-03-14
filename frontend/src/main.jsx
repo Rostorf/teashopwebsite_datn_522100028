@@ -20,6 +20,7 @@ import Cart from './pages/Cart.jsx'
 import Shop from './pages/Shop.jsx'
 
 import Profile from './pages/User/Profile.jsx'
+import Shipping from './pages/Orders/Shipping.jsx'
 
 import AdminRoute from './pages/Admin/AdminRoute.jsx'
 import UserList from './pages/Admin/UserList.jsx'
@@ -27,6 +28,8 @@ import CategoryList from './pages/Admin/CategoryList.jsx'
 import ProductList from './pages/Admin/ProductList.jsx'
 import AllProducts from './pages/Admin/AllProducts.jsx'
 import UpdateProduct from './pages/Admin/UpdateProduct.jsx'
+import PlaceOrder from './pages/Orders/PlaceOrder.jsx'
+import Order from './pages/Orders/Order.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +44,9 @@ const router = createBrowserRouter(
 
       <Route path='' element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />} />
+        <Route path='/shipping' element={<Shipping />} />
+        <Route path='/placeorder' element={<PlaceOrder />} />
+        <Route path='/order/:id' element={<Order />} />
       </Route>
 
       {/* Admin Routes */}
