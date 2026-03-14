@@ -67,9 +67,9 @@ const Navigation = () => {
             </ul>
 
             <div className='flex items-center gap-6'>
-                <button className='w-5 cursor-pointer text-base' aria-label="Search">
+                {/* <button className='w-5 cursor-pointer text-base' aria-label="Search">
                     <SearchOutlinedIcon/>
-                </button>
+                </button> */}
                 
                 <div className='group relative'>
                     <PersonOutlineOutlinedIcon className='w-5 cursor-pointer text-base' />
@@ -77,7 +77,7 @@ const Navigation = () => {
                         <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 text-center z-50'>
                             <div className='flex flex-col gap-2 w-56 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
                                 <Link to='/profile' className='cursor-pointer hover:text-black font-mono'>Trang cá nhân</Link>
-                                <Link to='/order' className='cursor-pointer hover:text-black font-mono'>Đơn hàng</Link>
+                                <Link to='/user-orders' className='cursor-pointer hover:text-black font-mono'>Đơn hàng</Link>
                                 {userInfo.isAdmin && (
                                     <>
                                         <Link to='/admin/allproductslist' className='cursor-pointer hover:text-black font-mono'>Trang quản trị</Link>

@@ -65,7 +65,7 @@ const Profile = () => {
                     <div className="flex justify-between">
                         <button type="submit" className="bg-green-500 text-white py-2 px-4 my-10 rounded hover:bg-green-600">Cập nhật</button>
 
-                        <Link to='user-orders' className="bg-green-500 text-white py-2 px-4 my-10 rounded hover:bg-green-600">
+                        <Link to='/user-orders' className="bg-green-500 text-white py-2 px-4 my-10 rounded hover:bg-green-600">
                             Đơn hàng của tôi
                         </Link>
                     </div>

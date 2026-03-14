@@ -269,7 +269,8 @@ const verifyVnpayReturn = async (req, res) => {
 
     delete vnp_Params['vnp_SecureHash'];
     delete vnp_Params['vnp_SecureHashType'];
-
+    delete vnp_Params['vnp_Return'];
+    
     vnp_Params = sortObject(vnp_Params);
     
     let secretKey = process.env.VNP_HASHSECRET;
