@@ -23,9 +23,9 @@ export default function Footer() {
             <nav className="regulations">
                 <h6 className="footer-title font-bold mb-5">Chính sách</h6>
                 <div className="space-y-3">
-                <a onClick={() => {navigate('/privacy');}} className="link link-hover hover:text-gray-600 cursor-pointer transition-colors">Bảo mật thông tin</a>
+                <a onClick={() => {navigate('/privacypolicy');}} className="link link-hover hover:text-gray-600 cursor-pointer transition-colors">Bảo mật thông tin</a>
                 <br />
-                <a onClick={() => {navigate('/shipping');}} className="link link-hover hover:text-gray-600 cursor-pointer transition-colors">Chính sách giao hàng</a>
+                <a onClick={() => {navigate('/shippingpolicy');}} className="link link-hover hover:text-gray-600 cursor-pointer transition-colors">Chính sách giao hàng</a>
                 <br />
                 <a onClick={() => {navigate('/terms');}} className="link link-hover hover:text-gray-600 cursor-pointer transition-colors">Điều khoản</a>
                 </div>

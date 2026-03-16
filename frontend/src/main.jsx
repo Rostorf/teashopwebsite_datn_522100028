@@ -18,6 +18,9 @@ import Favorites from './pages/Products/Favorites.jsx'
 import ProductDetails from './pages/Products/ProductDetails.jsx'
 import Cart from './pages/Cart.jsx'
 import Shop from './pages/Shop.jsx'
+import PrivacyPolicy from './pages/User/PrivacyPolicy.jsx'
+import ShippingPolicy from './pages/User/ShippingPolicy.jsx'
+import Terms from './pages/User/Terms.jsx'
 
 import Profile from './pages/User/Profile.jsx'
 import Shipping from './pages/Orders/Shipping.jsx'
@@ -45,6 +48,9 @@ const router = createBrowserRouter(
       <Route path='/cart' element={<Cart />} />
       <Route path='/shop' element={<Shop />} />
       <Route path='/user-orders' element={<UserOrder />} />
+      <Route path='/privacypolicy' element={<PrivacyPolicy />} />
+      <Route path='/shippingpolicy' element={<ShippingPolicy />} />
+      <Route path='/terms' element={<Terms />} />
 
       <Route path='' element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />} />
