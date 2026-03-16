@@ -20,7 +20,7 @@ const AdminDashboard = () => {
                 type: "line",
             },
             tooltip: {
-                theme: 'white',
+                theme: 'black',
             },
             colors: ["#00cf9b"],
             dataLabels: {
@@ -66,7 +66,11 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         if(salesDetail) {
-            const formattedSalesDate = salesDetail.map((item) => ({
+            const sortedSalesDetail = [...salesDetail].sort((a, b) => {
+                return new Date(b._id) - new Date(a._id);
+            });
+
+            const formattedSalesDate = sortedSalesDetail.map((item) => ({
                 x: item._id,
                 y: item.totalSales
             }))
@@ -103,7 +107,7 @@ const AdminDashboard = () => {
                     
                     <div className="mt-5">Khách hàng</div>
                     <h1 className="text-xl font-bold">
-                        {isLoading ? <Loader /> : customers?.length} Người dùng
+                        {loading ? <Loader /> : customers?.length} Người dùng
                     </h1>
                 </div>
 
@@ -112,13 +116,13 @@ const AdminDashboard = () => {
                     
                     <div className="mt-5">Tổng đơn hàng</div>
                     <h1 className="text-xl font-bold">
-                        {isLoading ? <Loader /> : orders?.totalOrders} Đơn
+                        {loadingTwo ? <Loader /> : orders?.totalOrders} Đơn
                     </h1>
                 </div>
             </div>
 
             <div className="ml-[10rem] mt-[4rem]">
-                <Chart options={state.options} series={state.series} type='bar' width="70%"/>
+                <Chart options={state.options} series={state.series} type='line' width="70%"/>
             </div>
 
             <div className='mt-[4rem]'>

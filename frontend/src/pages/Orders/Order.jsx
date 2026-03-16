@@ -137,6 +137,10 @@ const Order = () => {
           </p>
 
           <p className="mb-4">
+            <strong className="">Thời gian đặt hàng:</strong> {new Date(order.createdAt).toLocaleString()}
+          </p>
+
+          <p className="mb-4">
             <strong className="">Phương thức:</strong>{" "}
             {order.paymentMethod}
           </p>
