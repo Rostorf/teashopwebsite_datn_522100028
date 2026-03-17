@@ -66,11 +66,11 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         if(salesDetail) {
-            const sortedSalesDetail = [...salesDetail].sort((a, b) => {
-                return new Date(b._id) - new Date(a._id);
-            });
+            // const sortedSalesDetail = [...salesDetail].sort((a, b) => {
+            //     return new Date(b._id) - new Date(a._id);
+            // });
 
-            const formattedSalesDate = sortedSalesDetail.map((item) => ({
+            const formattedSalesDate = salesDetail.map((item) => ({
                 x: item._id,
                 y: item.totalSales
             }))
@@ -122,7 +122,7 @@ const AdminDashboard = () => {
             </div>
 
             <div className="ml-[10rem] mt-[4rem]">
-                <Chart options={state.options} series={state.series} type='line' width="70%"/>
+                <Chart options={state.options} series={state.series} type='bar' width="70%"/>
             </div>
 
             <div className='mt-[4rem]'>

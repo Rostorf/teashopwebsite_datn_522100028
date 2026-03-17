@@ -137,6 +137,10 @@ const Order = () => {
           </p>
 
           <p className="mb-4">
+            <strong className="">Số điện thoại:</strong> +84 {order.shippingAddress.phoneNumber}
+          </p>
+
+          <p className="mb-4">
             <strong className="">Thời gian đặt hàng:</strong> {new Date(order.createdAt).toLocaleString()}
           </p>
 

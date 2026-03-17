@@ -68,7 +68,7 @@ const PlaceOrder = () => {
                                     <img src={item.image} alt={item.name} className="w-16 h-16 object-cover" />
                                 </td>
                                 <td className="p-2">
-                                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                    <Link to={`/product/${item._id}`}>{item.name}</Link>
                                 </td>
                                 <td className="p-2">{item.qty}</td>
                                 <td className="p-2">{item.price} VND</td>
@@ -110,6 +110,7 @@ const PlaceOrder = () => {
                                 {cart.shippingAddress.city}, {" "}
                                 {cart.shippingAddress.postalCode},{" "}
                             </p>
+                            <p><strong>Số điện thoại:</strong> {cart.shippingAddress.phoneNumber}</p>
                     </div>
 
                     <div>

@@ -12,9 +12,8 @@ const Shipping = () => {
     const [paymentMethod, setPaymentMethod] = useState('VNPAY')
     const [address, setAddress] = useState(shippingAddress.address || '')
     const [city, setCity] = useState(shippingAddress.city || '')
-    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || ''
-
-    ) 
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '') 
+    const [phoneNumber, setPhoneNumber] = useState(shippingAddress.phoneNumber || '') 
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -22,7 +21,7 @@ const Shipping = () => {
     const submitHandler = (e) => {
         e.preventDefault()
 
-        dispatch(saveShippingAddress({address, city, postalCode}))
+        dispatch(saveShippingAddress({address, city, postalCode, phoneNumber}))
         dispatch(savePaymentMethod(paymentMethod))
         navigate('/placeorder')
     }
@@ -50,6 +49,10 @@ const Shipping = () => {
                 <div className="mb-4">
                     <label className="block mb-2">Mã bưu điện</label>
                     <input type="text" className="w-full p-2 border rounded" placeholder="Nhập mã bưu điện..." value={postalCode} onChange={e => setPostalCode(e.target.value)} required/>
+                </div>
+                <div className="mb-4">
+                    <label className="block mb-2">Số điện thoại</label>
+                    <input type="text" className="w-full p-2 border rounded" placeholder="Nhập số điện thoại..." value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} required/>
                 </div>
                 <div className="mb-4">
                     <label className="block">Chọn phương thức thanh toán</label>
