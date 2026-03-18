@@ -54,10 +54,10 @@ function Banner() {
           </h1>
           
           <p className="font-inter font-medium text-base md:text-lg max-w-2xl my-8 mx-auto px-4 text-white">
-            Integer quis tempor orci. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Khám phá những sản phẩm trà xanh thiên nhiên đến từ Rostea.
           </p>
           
-          <a href="/products">
+          <a href="/shop">
             <button className="bg-lime-600 hover:bg-lime-800 text-white hover:text-white font-semibold py-3 px-8 rounded-full transition duration-300 flex items-center">
               Khám phá thêm <ArrowRightIcon className="ml-2" />
             </button>

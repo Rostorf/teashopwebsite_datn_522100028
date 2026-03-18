@@ -80,7 +80,7 @@ const Navigation = () => {
                                 <Link to='/user-orders' className='cursor-pointer hover:text-black font-mono'>Đơn hàng</Link>
                                 {userInfo.isAdmin && (
                                     <>
-                                        <Link to='/admin/allproductslist' className='cursor-pointer hover:text-black font-mono'>Trang quản trị</Link>
+                                        <Link to='/admin/dashboard' className='cursor-pointer hover:text-black font-mono'>Trang quản trị</Link>
                                     </>
                                 )}
                                 <button onClick={logoutHandler} className='cursor-pointer hover:text-black font-mono'>Đăng xuất</button>

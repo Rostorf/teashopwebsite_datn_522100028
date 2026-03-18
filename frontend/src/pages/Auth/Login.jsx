@@ -35,8 +35,9 @@ const Login = () => {
             const res = await login({email, password}).unwrap()
             console.log(res);
             dispatch(setCredientials({ ...res }))
+            toast.success("Đăng nhập thành công!");
         } catch (error) {
-            toast.error(error?.data?.message || error.message)
+            toast.error(error?.data?.message || error.message || "Sai email hoặc mật khẩu, vui lòng thử lại!")
         }
     }
 

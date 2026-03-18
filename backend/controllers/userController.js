@@ -51,6 +51,9 @@ const loginUser = asyncHandler(async(req, res) => {
             isAdmin: existingUser.isAdmin,     
             });
             return;
+        } else {
+        res.status(401);
+        throw new Error("Email hoặc mật khẩu không chính xác"); 
         }
     }
 });
