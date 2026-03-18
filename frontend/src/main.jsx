@@ -22,6 +22,7 @@ import PrivacyPolicy from './pages/User/PrivacyPolicy.jsx'
 import ShippingPolicy from './pages/User/ShippingPolicy.jsx'
 import Terms from './pages/User/Terms.jsx'
 import About from './pages/User/About.jsx'
+import ContactUs from './pages/User/ContactUs.jsx'
 
 import Profile from './pages/User/Profile.jsx'
 import Shipping from './pages/Orders/Shipping.jsx'
@@ -53,6 +54,7 @@ const router = createBrowserRouter(
       <Route path='/shippingpolicy' element={<ShippingPolicy />} />
       <Route path='/terms' element={<Terms />} />
       <Route path='/about' element={<About />} />
+      <Route path='/contact' element={<ContactUs />} />
 
       <Route path='' element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />} />
