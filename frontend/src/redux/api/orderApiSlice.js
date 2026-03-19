@@ -51,6 +51,14 @@ export const orderApiSlice = apiSlice.injectEndpoints({
             })
         }),
 
+        payOrder: builder.mutation({
+            query: (orderId) => ({
+                url: `${ORDERS_URL}/${orderId}/pay`,
+                method: 'PUT'
+            })
+        }),
+
+
         getTotalOrders: builder.query({
             query: () => `${ORDERS_URL}/total-orders`
         }),
@@ -77,5 +85,6 @@ export const {
     useVerifyVnpayReturnMutation,
     useGetMyOrdersQuery,
     useDeliverOrderMutation,
+    usePayOrderMutation,
     useGetOrdersQuery
 } = orderApiSlice

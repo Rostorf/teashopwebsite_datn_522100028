@@ -58,7 +58,10 @@ const Shipping = () => {
                     <label className="block">Chọn phương thức thanh toán</label>
                     <div className="mt-2">
                        <label htmlFor="" className="inline-flex items-center">
-                            <input type="radio" className="form-radio text-green-500" name="paymentMethod" value="VNPAY" checked={paymentMethod === "VNPAY"} onChange={e => setPaymentMethod(e.target.value)} />
+                            <input type="radio" className="form-radio" name="paymentMethod" value="COD" checked={paymentMethod === "COD"} onChange={e => setPaymentMethod(e.target.value)} />
+
+                            <span className="ml-2">COD</span>
+                            <input type="radio" className="form-radio ml-4" name="paymentMethod" value="VNPAY" checked={paymentMethod === "VNPAY"} onChange={e => setPaymentMethod(e.target.value)} />
 
                             <span className="ml-2">VNPAY</span>
                         </label> 

@@ -7,6 +7,7 @@ import Loader from "../../components/Loader";
 import {
   useDeliverOrderMutation,
   useGetOrderDetailsQuery,
+  usePayOrderMutation,
   useCreateVnpayUrlMutation,
   useVerifyVnpayReturnMutation,
 } from "../../redux/api/orderApiSlice";
@@ -26,6 +27,7 @@ const Order = () => {
   const [verifyVnpayReturn, { isLoading: isVerifying }] = useVerifyVnpayReturnMutation();
   
   const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
+  const [payOrder, { isLoading: loadingPayTwo }] = usePayOrderMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
 
@@ -64,6 +66,16 @@ const Order = () => {
       await deliverOrder(orderId);
       refetch();
       toast.success("Đánh dấu đơn hàng đã được giao thành công");
+    } catch (error) {
+      toast.error(error?.data?.message || "Không thành công");
+    }
+  };
+
+  const payHandler = async () => {
+    try {
+      await payOrder(orderId);
+      refetch();
+      toast.success("Đánh dấu đơn hàng đã được thanh toán thành công");
     } catch (error) {
       toast.error(error?.data?.message || "Không thành công");
     }
@@ -170,8 +182,8 @@ const Order = () => {
           <span>{order.totalPrice} VND</span>
         </div>
 
-        {/* VNPAY Payment Button Section */}
-        {!order.isPaid && (
+        {/* VNPAY Payment Section */}
+        {!order.isPaid && order.paymentMethod === 'VNPAY' && (
           <div className="mt-4">
             {loadingPay || isVerifying ? (
               <Loader />
@@ -184,6 +196,19 @@ const Order = () => {
                 Thang toán bằng VNPAY
               </button>
             )}
+          </div>
+        )}
+
+        {loadingPayTwo && <Loader />}
+        {userInfo && userInfo.isAdmin && !order.isPaid && !order.isDelivered && order.paymentMethod === 'COD' && (
+          <div className="mt-4">
+            <button
+              type="button"
+              className="bg-red-500 hover:bg-red-600 text-white font-bold w-full py-2 rounded transition-colors"
+              onClick={payHandler}
+              >
+              Đánh dấu đơn hàng đã được thanh toán
+            </button>
           </div>
         )}
 

@@ -165,10 +165,10 @@ const markOrderAsPaid = async(req, res) => {
             order.isPaid = true;
             order.paidAt = Date.now()
             order.paymentResult = {
-                id: req.body.id,
-                status: req.body.status,
-                update_time: req.body.update_time,
-                email_address: req.body.payer.email_address
+                id: "MANUAL_PAY",
+                status: "COMPLETED",
+                update_time: Date.now(),
+                email_address: req.user ? req.user.email : "admin@example.com"
             }
 
             const updateOrder = await order.save()
