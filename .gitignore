@@ -13,6 +13,9 @@ dist-ssr
 *.local
 
 *.docx
+DATN_522100028_HaManhHung.docx
+*.pptx
+/word
 
 # Editor directories and files
 .vscode/*

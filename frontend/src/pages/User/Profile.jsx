@@ -54,11 +54,11 @@ const Profile = () => {
                         <input type="email" placeholder="Nhập email" className="form-input p-4 my-2 rounded-sm w-full bg-gray-200" value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
                     <div className="mb-4">
-                        <label className="block mb-2">Mật khẩu</label>
+                        <label className="block mb-2">Mật khẩu mới</label>
                         <input type="password" placeholder="Nhập mật khẩu" className="form-input p-4 my-2 rounded-sm w-full bg-gray-200" value={password} onChange={e => setPassword(e.target.value)} />
                     </div>
                     <div className="mb-4">
-                        <label className="block mb-2">Nhập lại mật khẩu</label>
+                        <label className="block mb-2">Nhập lại mật khẩu mới</label>
                         <input type="password" placeholder="Nhập lại mật khẩu" className="form-input p-4 my-2 rounded-sm w-full bg-gray-200" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                     </div>
 

@@ -55,6 +55,9 @@ const loginUser = asyncHandler(async(req, res) => {
         res.status(401);
         throw new Error("Email hoặc mật khẩu không chính xác"); 
         }
+    } else {
+        res.status(401);
+        throw new Error("Email hoặc mật khẩu không chính xác");
     }
 });
 

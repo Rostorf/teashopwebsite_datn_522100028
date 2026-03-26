@@ -11,7 +11,7 @@ const ProductCard = ({p}) => {
 
     const addToCartHandler = (product, qty) => {
         dispatch(addToCart({...product, qty}))
-        toast.success(`${p?.name} đã được thêm vào giỏ hàng`)
+        toast.success(`${p?.name} đã được thêm vào giỏ hàng`, { autoClose: 1500 })
     }
 
   return (
