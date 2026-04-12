@@ -18,6 +18,7 @@ const OrderList = () => {
                         <th className="text-left pl-1">ID</th>
                         <th className="text-left pl-1">Người mua</th>
                         <th className="text-left pl-1">Ngày tạo</th>
+                        <th className="text-left pl-1">Số Lượng mua</th>
                         <th className="text-left pl-1">Tổng</th>
                         <th className="text-left pl-1">Thanh toán</th>
                         <th className="text-left pl-1">Tình trạng</th>
@@ -31,6 +32,7 @@ const OrderList = () => {
                             <td className="py-2">{order._id}</td>
                             <td className="py-2">{order.user ? order.user.username : "N/A"}</td>
                             <td className="py-2">{order.createdAt ? order.createdAt.substring(0, 10) : "N/A"}</td>
+                            <td className="text-center">{order.orderItems.reduce((total, item) => total + item.qty, 0)}</td>
                             <td className="py-2">{order.totalPrice} VND</td>
                             <td className="py-2">
                                 {order.isPaid ? (
