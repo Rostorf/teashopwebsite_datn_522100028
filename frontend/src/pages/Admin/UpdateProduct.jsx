@@ -129,7 +129,7 @@ const UpdateProduct = () => {
                     <div className="flex flex-wrap">
                         <div className="one">
                             <label htmlFor="name block">Số lượng mua</label> <br />
-                            <input type="number" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[] text-black" value={quantity} onChange={e => setQuantity(e.target.value)} />
+                            <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[] text-black" value={quantity} onChange={e => setQuantity(e.target.value)} />
                         </div>
                         <div className="two ml-10">
                             <label htmlFor="name block">Giá</label> <br />

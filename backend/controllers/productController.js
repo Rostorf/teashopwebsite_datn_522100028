@@ -16,7 +16,7 @@ const addProduct = asyncHandler(async(req, res) => {
             case !category:
                 return res.json({error: "Danh mục sản phẩm trống"})
             case !quantity:
-                return res.json({error: "Số lượng sản phẩm trống"})
+                return res.json({error: "Xuất xứ sản phẩm trống"})
         }
 
         const product = new Product({...req.fields})
@@ -44,7 +44,7 @@ const updateProductDetails = asyncHandler(async(req, res) => {
             case !category:
                 return res.json({error: "Danh mục sản phẩm trống"})
             case !quantity:
-                return res.json({error: "Số lượng sản phẩm trống"})
+                return res.json({error: "Xuất xứ sản phẩm trống"})
         }
 
         const product = await Product.findByIdAndUpdate(req.params.id, {...req.fields}, { returnDocument: 'after' });

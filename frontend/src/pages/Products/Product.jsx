@@ -12,7 +12,7 @@ const Product = ({product}) => {
             <Link to={`/product/${product._id}`}>
                 <h2 className="flex justify-between items-center">
                     <div className="text-lg">{product.name.substring(0, 30)}...</div>
-                    <span className="bg-green-300 text-white text-sm font-medium mr-2 px-3 py-0.5 rounded-full dark:bg-green-700 dark:text-white">{product.price} VND</span>
+                    <span className="bg-green-300 text-white text-sm font-medium mr-2 px-3 py-0.5 rounded-full dark:bg-green-700 dark:text-white">{product.price} VND / Hộp</span>
                 </h2>
             </Link>
         </div>

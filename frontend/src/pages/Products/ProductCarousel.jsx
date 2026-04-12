@@ -11,6 +11,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 import NextArrow from "../../components/NextArrow"
 import PrevArrow from "../../components/PrevArrow"
+import PublicIcon from '@mui/icons-material/Public';
 
 const ProductCarousel = () => {
 
@@ -41,7 +42,7 @@ const ProductCarousel = () => {
                     <div className="flex justify-between w-[20rem] p-2 pl-[2rem]">
                         <div className="one">
                             <h2 className="font-bold">{name}</h2>
-                            <p>{price} VND</p> <br /> <br />
+                            <p>{price} VND / Hộp</p> <br /> <br />
                             <p className="w-[25rem] pb-2">{description.substring(0, 170)}...</p>
                         </div>
                         <div className="flex-justify-between w-[20rem] pl-[3rem]">
@@ -51,6 +52,9 @@ const ProductCarousel = () => {
                                 </h1>
                                 <h1 className="flex items center mb-6 w-[15rem]">
                                     <AccessTimeIcon className="mr-1" /> Thêm vào lúc: {moment(createdAt).fromNow()}
+                                </h1>
+                                <h1 className="flex items center mb-6 w-[15rem]">
+                                    <PublicIcon className="mr-1" />Xuất xứ: {quantity}
                                 </h1>
                                 <h1 className="flex items center mb-6 w-[15rem]">
                                     <RateReviewOutlinedIcon className="mr-1" />Lượt Đánh giá: {numReviews}

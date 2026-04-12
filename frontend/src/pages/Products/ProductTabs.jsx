@@ -33,7 +33,7 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
                     {userInfo ? (
                         <form onSubmit={submitHandler}>
                             <div className="my-2">
-                                <label htmlFor="rating" className="block text-xl mb-2">Đáng giá sản phẩm</label>
+                                <label htmlFor="rating" className="block text-xl mb-2">Đánh giá sản phẩm</label>
                                 <select id="rating" required value={rating} onChange={e => setRating(e.target.value)} className="p-2 border rounded-lg xl:w-[40rem]">
                                     <option value="">Chọn mức đánh giá</option>
                                     <option value="1">1 sao</option>

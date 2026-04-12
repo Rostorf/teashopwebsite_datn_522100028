@@ -14,6 +14,7 @@ import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 import HeartIcon from "./HeartIcon"
 import Rating from "./Ratings"
 import ProductTabs from "./ProductTabs"
+import PublicIcon from '@mui/icons-material/Public';
 import { addToCart } from "../../redux/features/cart/cartSlice"
 
 moment.locale('vi')
@@ -67,11 +68,14 @@ const ProductDetails = () => {
                 <div className="flex flex-col justify-between">
                     <h2 className="text-2xl font-semibold">{product.name}</h2>
                     <p className="my-4 xl:[35rem] lg:w-[35rem] md:w-[30rem]">{product.description}</p>
-                    <p className="text-5xl my-4 font-extrabold">{product.price} VND</p>
+                    <p className="text-5xl my-4 font-extrabold">{product.price} VND / Hộp</p>
                     <div className="flex items-center justify-between w-[20rem]">
                         <div className="one">
                             <h1 className="flex items-center mb-6">
                                 <InventoryIcon className="mr-2" /> {product.countInStock > 0 ? `Còn hàng: ${product.countInStock}` : 'Hết hàng'}
+                            </h1>
+                            <h1 className="flex items-center mb-6 w-[20rem]">
+                                <PublicIcon className="mr-2" /> Xuất xứ: {product.quantity}
                             </h1>
                             <h1 className="flex items-center mb-6 w-[20rem]">
                                 <AccessTimeIcon className="mr-2" /> Thêm vào lúc: {moment(product.createdAt).fromNow()}

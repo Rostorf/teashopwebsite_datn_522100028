@@ -299,7 +299,7 @@ const verifyVnpayReturn = async (req, res) => {
             }
             return res.status(200).json({ message: 'Order already paid', code: '00' });
         }
-        res.status(400).json({ message: 'Payment failed at gateway', code: rspCode });
+        res.status(400).json({ message: 'Lỗi ở cổng thanh toán', code: rspCode });
     } else {
         res.status(400).json({ message: 'Invalid signature', code: '97' });
     }
