@@ -21,7 +21,7 @@ const ProductCard = ({p}) => {
                 {/* <span className="absolute bottom-3 right-3 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-800">
                     {p?.category}
                 </span> */}
-                <img className="cursor-pointer" src={p.image} alt={p.name} style={{height: '200px', objectFit: 'cover'}} />
+                <img src={p.images && p.images.length > 0 ? p.images[0] : p.image} alt={p.name} style={{ height: '170px', objectFit: 'cover' }} className="w-full rounded" />
             </Link>
             <HeartIcon product={p}/>
         </section>

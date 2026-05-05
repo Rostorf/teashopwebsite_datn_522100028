@@ -16,6 +16,7 @@ import Rating from "./Ratings"
 import ProductTabs from "./ProductTabs"
 import PublicIcon from '@mui/icons-material/Public';
 import { addToCart } from "../../redux/features/cart/cartSlice"
+import { useEffect } from "react"
 
 moment.locale('vi')
 
@@ -32,6 +33,14 @@ const ProductDetails = () => {
     const {userInfo} = useSelector(state => state.auth)
     
     const [createReview, {isLoading: loadingProductReview}] = useCreateReviewMutation()
+
+    const [mainImage, setMainImage] = useState("");
+
+  useEffect(() => {
+    if (product && product.images && product.images.length > 0) {
+      setMainImage(product.images[0]); // Set the first image as default
+    }
+  }, [product]);
 
     const submitHandler = async(e) => {
         e.preventDefault()
@@ -61,10 +70,26 @@ const ProductDetails = () => {
         {isLoading ? (<Loader />) : error ? (<Message variant='danger'>{error?.data?.message || error.message}</Message>) : (
             <>
             <div className="flex flex-wrap relative items-between mt-[2rem] ml-[10rem]">
-                <div>
-                    <img src={product.image} alt={product.name} className="w-full xl:w-[50rem] lg:w-[45rem] md:w-[30rem] sm:w-[20rem] mr-[2rem] shadow-lg" />
-                    <HeartIcon product={product} />
-                </div>
+                <div className="w-full md:w-1/2 p-4">
+            {/* Main large image */}
+            <img src={mainImage} alt={product.name} className="w-full xl:w-[50rem] lg:w-[45rem] md:w-[30rem] sm:w-[20rem] mr-[2rem] shadow-lg"/>
+            
+            {/* Thumbnails row */}
+            <div className="flex gap-4 mt-4 overflow-x-auto">
+              {product.images?.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`${product.name} - view ${index + 1}`}
+                  onClick={() => setMainImage(img)}
+                  className={`w-20 h-20 object-cover cursor-pointer rounded-md border-2 transition-all ${
+                    mainImage === img ? "border-green-500 opacity-100" : "border-transparent opacity-60 hover:opacity-100"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
                 <div className="flex flex-col justify-between">
                     <h2 className="text-2xl font-semibold">{product.name}</h2>
                     <p className="my-4 xl:[35rem] lg:w-[35rem] md:w-[30rem]">{product.description}</p>

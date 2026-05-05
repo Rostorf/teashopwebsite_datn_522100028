@@ -5,7 +5,7 @@ const Product = ({product}) => {
   return (
     <div className='w-[30rem] ml-[2rem] p-3 relative shadow-lg'>
         <div className="relative">
-            <img src={product.image} alt={product.name} className="w-[30rem] rounded" />
+            <img src={product.images && product.images.length > 0 ? product.images[0] : product.image} alt={product.name} className="w-[30rem] rounded" />
             <HeartIcon product={product} />
         </div>
         <div className="p-4">

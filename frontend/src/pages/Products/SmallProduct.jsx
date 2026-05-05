@@ -5,7 +5,7 @@ const SmallProduct = ({product}) => {
   return (
     <div className="w-[20rem] ml-[2rem] p-3 m-5 shadow-lg">
         <div className="relative">
-            <img src={product.image} alt={product.name} className="h-auto rounded" />
+            <img src={product.images && product.images.length > 0 ? product.images[0] : product.image} alt={product.name} className="h-auto rounded" />
             <HeartIcon product={product} />
 
             <div className="p-4">

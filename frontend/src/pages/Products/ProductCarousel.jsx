@@ -36,9 +36,9 @@ const ProductCarousel = () => {
                 {error?.data?.message || error.message}
             </Message>
         ) : <Slider {...settings} className="xl:w-[50rem] lg:w-[50rem] md:w-[56rem] sm:w-[40rem] sm:block shadow-xl">
-            {products.map(({image, _id, name, price, description, createdAt, numReviews, rating, quantity, countInStock}) => (
+            {products.map(({images, _id, name, price, description, createdAt, numReviews, rating, quantity, countInStock}) => (
                 <div key={_id}>
-                    <img src={image} alt={name} className="w-full rounded-lg object-cover h-[30rem] mb-5" />
+                    <img src={images && images.length > 0 ? images[0] : images} alt={name} className="w-full rounded-lg object-cover h-[30rem] mb-5" />
                     <div className="flex justify-between w-[20rem] p-2 pl-[2rem]">
                         <div className="one">
                             <h2 className="font-bold">{name}</h2>

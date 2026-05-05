@@ -108,7 +108,11 @@ const Order = () => {
                   {order.orderItems.map((item, index) => (
                     <tr key={index}>
                       <td className="p-2">
-                        <img src={item.image} alt={item.name} className="w-16 h-16 object-cover"/>
+                        <img
+  src={item.images && item.images.length > 0 ? item.images[0] : item.image}
+  alt={item.name}
+  className="w-16 h-16 object-cover" // Giữ nguyên class hiện tại của bạn
+/>
                       </td>
                       <td className="p-2">
                         <Link to={`/product/${item.product}`}>{item.name}</Link>

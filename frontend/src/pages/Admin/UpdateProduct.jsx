@@ -15,7 +15,7 @@ const UpdateProduct = () => {
 
     const { data: productData } = useGetProductByIdQuery(params.id)
 
-    const [image, setImage] = useState(productData?.image || "")
+    const [images, setImages] = useState(productData?.image || "")
     const [name, setName] = useState(productData?.name || "")
     const [description, setDescription] = useState(productData?.description || "")
     const [price, setPrice] = useState(productData?.price || "")
@@ -37,31 +37,45 @@ const UpdateProduct = () => {
             setPrice(productData.price)
             setCategory(productData.category)
             setQuantity(productData.quantity)
-            setImage(productData.image)
+            setImages(productData.image || [])
             setStock(productData.countInStock)
         }
     }, [productData]);
 
-    const uploadFileHandler = async(e) => {
-        const formData = new FormData()
-        formData.append('image', e.target.files[0])
+    const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    const files = Array.from(e.target.files);
 
-        try {
-            const res = await uploadProductImage(formData).unwrap()
-            toast.success("Thêm ảnh thành công")
-            setImage(res.image)
-        } catch (error) {
-            console.log(error)
-            toast.error("Thêm ảnh không thành công")
-        }
+    if (images.length + files.length > 4) {
+      toast.error("Bạn chỉ có thể lưu tối đa 4 ảnh cho mỗi sản phẩm");
+      return;
     }
+
+    files.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      // COMBINE old images with the newly uploaded ones
+      setImages((prevImages) => [...prevImages, ...res.images]);
+      toast.success(res.message);
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+    }
+  };
+
+  // 3. REMOVE IMAGE HANDLER
+  const removeImageHandler = (indexToRemove) => {
+    setImages(images.filter((_, index) => index !== indexToRemove));
+  };
 
     const handleUpdate = async(e) => {
         e.preventDefault()
         
         try {
             const formData = new FormData()
-            formData.append('image', image)
+            formData.append("images", JSON.stringify(images));
             formData.append('name', name)
             formData.append('description', description)
             formData.append('price', price)
@@ -105,20 +119,35 @@ const UpdateProduct = () => {
             <AdminMenu/>
             <div className="md:w-3/4 p-3">
                 <div className="text-xl font-bold h-12">Cập nhật sản phẩm</div>
-                {image && (
-                    <div className="text-center">
-                        <img src={image} alt="product" className="block mx-auto w-full h-[40%]" />
-                    </div>
-                )}
-
                 <div className="mb-3">
-                    <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
-                        {image ? image.name : "Thêm ảnh"}
+            <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
+                {images.length >= 4 ? "Đã đạt giới hạn 4 ảnh" : "Tải ảnh sản phẩm (Tối đa 4)"}
+                
+                <input type="file" name="images" accept="image/*" multiple disabled={images.length >= 4} onChange={uploadFileHandler} className="hidden"/>
+            </label>
+            </div>
 
-                        <input type="file" name="image" accept="image/*" onChange={uploadFileHandler} className="text-black" />
-                    </label>
+            {/* Image Preview Gallery with Delete Buttons */}
+            {images.length > 0 && (
+            <div className="flex gap-4 mt-4 mb-6 flex-wrap">
+                {images.map((imgUrl, index) => (
+                <div key={index} className="relative group">
+                    <img 
+                    src={imgUrl} 
+                    alt={`Preview ${index}`} 
+                    className="w-24 h-24 object-cover rounded-lg border border-gray-600" 
+                    />
+                    <button
+                    type="button"
+                    onClick={() => removeImageHandler(index)}
+                    className="absolute -top-2 -right-2 bg-red-500 text-black rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow-lg hover:bg-red-600"
+                    >
+                    X
+                    </button>
                 </div>
-
+                ))}
+            </div>
+            )}
                 <div className="p-3">
                     <div className="flex flex-wrap">
                         <div className="one">

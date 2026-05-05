@@ -24,22 +24,29 @@ const PlaceOrder = () => {
 
     const dispatch = useDispatch()
 
-    const placeOrderHandler = async() => {
-        try {
-            const res = await createOrder({
-                orderItems: cart.cartItems,
-                shippingAddress: cart.shippingAddress,
-                paymentMethod: cart.paymentMethod,
-                itemsPrice: cart.itemsPrice,
-                shippingPrice: cart.shippingPrice,
-                totalPrice: cart.totalPrice
-            }).unwrap()
-            dispatch(clearCartItems())
-            navigate(`/order/${res._id}`)
-        } catch (error) {
-            toast.error(error)
-        }
-    }
+    const placeOrderHandler = async () => {
+  try {
+    const formattedOrderItems = cart.cartItems.map((item) => ({
+      ...item,
+      image: item.images && item.images.length > 0 ? item.images[0] : item.image, 
+    }));
+
+    const res = await createOrder({
+      orderItems: formattedOrderItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      shippingPrice: cart.shippingPrice,
+      taxPrice: cart.taxPrice,
+      totalPrice: cart.totalPrice,
+    }).unwrap();
+
+    dispatch(clearCartItems());
+    navigate(`/order/${res._id}`);
+  } catch (error) {
+    toast.error(error?.data?.message || error.error);
+  }
+};
 
   return (
     <>
@@ -65,7 +72,7 @@ const PlaceOrder = () => {
                         {cart.cartItems.map((item, index) => (
                             <tr key={index}>
                                 <td className="p-2">
-                                    <img src={item.image} alt={item.name} className="w-16 h-16 object-cover" />
+                                    <img src={item.images && item.images.length > 0 ? item.images[0] : item.image} alt={item.name} className="w-16 h-16 object-cover"/>
                                 </td>
                                 <td className="p-2">
                                     <Link to={`/product/${item._id}`}>{item.name}</Link>

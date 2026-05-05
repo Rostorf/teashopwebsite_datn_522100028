@@ -27,7 +27,7 @@ const AllProducts = () => {
               {products.map((product) => (
                 <Link key={product._id} to={`/admin/product/update/${product._id}`} className="block mb-4 overflow-hidden">
                   <div className="flex">
-                    <img src={product.image} alt={product.name} className="w-[10rem] object-cover" />
+                    <img src={product.images && product.images.length > 0 ? product.images[0] : product.image} alt={product.name} className="w-24 h-24 object-cover rounded-lg" />
                     <div className="mx-6 p-4 flex flex-col justify-around">
                       <div className="flex justify-between">
                         <h5 className="text-xl font-semibold mb-2">

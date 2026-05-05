@@ -1,62 +1,74 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Product from '../models/productModel.js'
 
-const addProduct = asyncHandler(async(req, res) => {
-    try {
-        const { name, description, price, category, quantity } = req.fields
+const addProduct = asyncHandler(async (req, res) => {
+  try {
+    const data = req.fields || req.body;
+    let images = data.images;
 
-        //Validation
-        switch (true) {
-            case !name:
-                return res.json({error: "Tên sản phẩm trống"})
-            case !description:
-                return res.json({error: "Mô tả trống"})
-            case !price:
-                return res.json({error: "Giá sản phẩm trống"})
-            case !category:
-                return res.json({error: "Danh mục sản phẩm trống"})
-            case !quantity:
-                return res.json({error: "Xuất xứ sản phẩm trống"})
-        }
-
-        const product = new Product({...req.fields})
-        await product.save();
-        res.json(product);
-
-    } catch (error) {
-        console.error(error)
-        res.status(400).json(error.message)
+    // Xử lý JSON string
+    if (typeof images === "string") {
+      try {
+        images = JSON.parse(images);
+      } catch (err) {
+        console.log("Lỗi Parse JSON:", err.message);
+      }
     }
+
+    if (!images || images.length === 0) {
+      return res.status(400).json({ error: "Yêu cầu ít nhất 1 ảnh sản phẩm" });
+    }
+    const productDataToSave = { ...data, images };
+    console.log(productDataToSave);
+
+    const product = new Product(productDataToSave);
+    await product.save();
+    
+    console.log("=== LƯU THÀNH CÔNG! ===");
+    res.json(product);
+
+  } catch (error) {
+    console.log(error.message); 
+    res.status(400).json({ error: error.message });
+  }
 });
 
-const updateProductDetails = asyncHandler(async(req, res) => {
-    try {
-        const { name, description, price, category, quantity } = req.fields
+const updateProductDetails = asyncHandler(async (req, res) => {
+  try {
+    const data = req.fields || req.body;
+    let images = data.images;
 
-        //Validation
-        switch (true) {
-            case !name:
-                return res.json({error: "Tên sản phẩm trống"})
-            case !description:
-                return res.json({error: "Mô tả trống"})
-            case !price:
-                return res.json({error: "Giá sản phẩm trống"})
-            case !category:
-                return res.json({error: "Danh mục sản phẩm trống"})
-            case !quantity:
-                return res.json({error: "Xuất xứ sản phẩm trống"})
-        }
-
-        const product = await Product.findByIdAndUpdate(req.params.id, {...req.fields}, { returnDocument: 'after' });
-
-        await product.save();
-        res.json(product);
-
-    } catch (error) {
-        console.error(error)
-        res.status(400).json(error.message)
+    // 1. Parse the JSON string back into a real Array
+    if (typeof images === "string") {
+      try {
+        images = JSON.parse(images);
+      } catch (err) {
+        console.log("Lỗi Parse JSON:", err.message);
+      }
     }
-})
+
+    // 2. Validation
+    if (!images || images.length === 0) {
+      return res.status(400).json({ error: "Yêu cầu ít nhất 1 ảnh sản phẩm" });
+    }
+
+    // 3. Find and Update
+    const product = await Product.findByIdAndUpdate(
+      req.params.id, // Make sure this matches your route parameter (e.g., req.params.id)
+      { ...data, images },
+      { new: true } // This tells Mongoose to return the updated document
+    );
+
+    if (!product) {
+      return res.status(404).json({ error: "Không tìm thấy sản phẩm" });
+    }
+
+    res.json(product);
+  } catch (error) {
+    console.error("MONGOOSE ERROR:", error.message);
+    res.status(400).json({ error: error.message });
+  }
+});
 
 const deleteProduct = asyncHandler(async(req, res) => {
     try {

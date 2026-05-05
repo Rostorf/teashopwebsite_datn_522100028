@@ -9,14 +9,13 @@ import { toast } from "react-toastify"
 import AdminMenu from "./AdminMenu"
 
 const ProductList = () => {
-    const [image, setImage] = useState('')
+    const [images, setImages] = useState([])
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [category, setCategory] = useState('')
     const [quantity, setQuantity] = useState('')
     const [stock, setStock] = useState(0)
-    const [imageUrl, setImageUrl] = useState(null)
     const navigate = useNavigate()
 
     const [uploadProductImage] = useUploadProductImageMutation();
@@ -28,7 +27,7 @@ const ProductList = () => {
         
         try {
             const productData = new FormData()
-            productData.append('image', image)
+            productData.append("images", JSON.stringify(images));
             productData.append('name', name)
             productData.append('description', description)
             productData.append('price', price)
@@ -50,19 +49,27 @@ const ProductList = () => {
         }
     }
 
-    const uploadFileHandler = async(e) => {
-        const formData = new FormData()
-        formData.append('image', e.target.files[0])
+    const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    const files = Array.from(e.target.files);
+
+    if (files.length > 4) {
+      toast.error("Bạn chỉ có thể tải lên tối đa 4 ảnh cho mỗi sản phẩm");
+      return;
+    }
+
+    files.forEach((file) => {
+      formData.append("images", file);
+    });
 
         try {
-            const res = await uploadProductImage(formData).unwrap()
-            toast.success(res.message)
-            setImage(res.image)
-            setImageUrl(res.image)
+            const res = await uploadProductImage(formData).unwrap();
+            setImages(res.images);
+            toast.success(res.message);
         } catch (error) {
-            toast.error(error?.data?.message || error.error)
+            toast.error(error?.data?.message || error.error);
         }
-    }
+    };
 
   return (
     <div className="container xl:mx-[9rem] sm:mx-[0] mt-10 mb-40">
@@ -70,19 +77,21 @@ const ProductList = () => {
             <AdminMenu/>
             <div className="md:w-3/4 p-3">
                 <div className="text-xl font-bold h-12">Thêm sản phẩm</div>
-                {imageUrl && (
-                    <div className="text-center">
-                        <img src={imageUrl} alt="product" className="block mx-auto max-h-[200px]" />
-                    </div>
-                )}
+
 
                 <div className="mb-3">
-                    <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
-                        {image ? image.name : "Thêm ảnh"}
-
-                        <input type="file" name="image" accept="image/*" onChange={uploadFileHandler} className={!image ? 'hidden' : "text-black"} />
-                    </label>
-                </div>
+         <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
+        {images.length > 0 ? `${images.length} ảnh đã được chọn` : "Tải ảnh sản phẩm (Tối đa 4)"}
+        
+        <input type="file" name="images" accept="image/*" multiple onChange={uploadFileHandler} className={!images.length ? "hidden" : "text-black"} />
+      </label>
+    </div>
+    
+    <div className="flex gap-2 mt-4">
+      {images.map((imgUrl, index) => (
+        <img key={index} src={imgUrl} alt="Preview" className="w-24 h-24 object-cover rounded-lg" />
+      ))}
+    </div>
 
                 <div className="p-3">
                     <div className="flex flex-wrap">
