@@ -77,11 +77,7 @@ const ProductDetails = () => {
             {/* Thumbnails row */}
             <div className="flex gap-4 mt-4 overflow-x-auto">
               {product.images?.map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt={`${product.name} - view ${index + 1}`}
-                  onClick={() => setMainImage(img)}
+                <img key={index} src={img} alt={`${product.name} - view ${index + 1}`} onClick={() => setMainImage(img)}
                   className={`w-20 h-20 object-cover cursor-pointer rounded-md border-2 transition-all ${
                     mainImage === img ? "border-green-500 opacity-100" : "border-transparent opacity-60 hover:opacity-100"
                   }`}

@@ -52,7 +52,7 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
                                 <br />
                                 <textarea id="comment" rows="3" required value={comment} onChange={e => setComment(e.target.value)} className="p-2 border rounded-lg xl:w-[40rem] mb-4"></textarea>
                             </div>
-                            <button type="submit" disabled={loadingProductReview} className="bg-green-500 text-white py-2 px-4 rounded-lg mb-20">Đánh giá</button>
+                            <button type="submit" disabled={loadingProductReview} className="bg-green-500 text-white py-2 px-4 rounded-lg mb-20 cursor-pointer">Đánh giá</button>
                         </form>
                     ) : (
                         <p>Vui lòng <Link to='/login'>đăng nhập</Link> để viết đánh giá</p>

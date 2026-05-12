@@ -5,6 +5,7 @@ import { setCategories, setProducts, setChecked } from '../redux/features/shop/s
 import { useFetchCategoriesQuery } from '../redux/api/categoryApiSlice'
 import Loader from "../components/Loader"
 import ProductCard from "./Products/ProductCard"
+import { useLocation } from "react-router-dom"
 
 const Shop = () => {
 
@@ -14,8 +15,13 @@ const Shop = () => {
     const categoriesQuery = useFetchCategoriesQuery()
     const [priceFilter, setPriceFilter] = useState('')
 
+    const { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+    const keyword = searchParams.get("keyword") || "";
+
     const filteredProductsQuery = useGetFilteredProductsQuery({
         checked,
+        keyword,
     })
 
     useEffect(() => {

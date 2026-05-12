@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../../redux/api/userApiSlice.js';
 import { logout } from '../../redux/features/auth/authSlice.js';
 import FavoritesCount from '../Products/FavoritesCount.jsx';
+import SearchBox from '../../components/SearchBox.jsx';
 
 const Navigation = () => {
     
@@ -67,9 +68,7 @@ const Navigation = () => {
             </ul>
 
             <div className='flex items-center gap-6'>
-                {/* <button className='w-5 cursor-pointer text-base' aria-label="Search">
-                    <SearchOutlinedIcon/>
-                </button> */}
+                <SearchBox />
                 
                 <div className='group relative'>
                     <PersonOutlineOutlinedIcon className='w-5 cursor-pointer text-base' />

@@ -180,11 +180,16 @@ const fetchNewProducts = asyncHandler(async(req, res) => {
 
 const filterProducts = asyncHandler(async(req, res) => {
     try {
-        const {checked, radio} = req.body
+        const {checked, radio, keyword} = req.body
 
         let args = {}
         if(checked.length > 0) args.category = checked
         if(checked.radio > 0) args.price = {$gte: radio[0], $lte: radio[1]}
+
+        if (keyword) 
+        {
+            args.name = { $regex: keyword, $options: "i" };
+        }
 
         const products = await Product.find(args)
         res.json(products)
