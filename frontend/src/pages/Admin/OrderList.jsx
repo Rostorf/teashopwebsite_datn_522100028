@@ -3,9 +3,25 @@ import Loader from "../../components/Loader"
 import { Link } from "react-router-dom"
 import { useGetOrdersQuery } from '../../redux/api/orderApiSlice'
 import AdminMenu from "./AdminMenu"
+import { useDeleteOrderMutation } from '../../redux/api/orderApiSlice'
+import { toast } from 'react-toastify'
 
 const OrderList = () => {
-    const {data: orders, isLoading, error} = useGetOrdersQuery()
+    const {data: orders, isLoading, error, refetch} = useGetOrdersQuery()
+
+    const [deleteOrder] = useDeleteOrderMutation();
+
+    const handleDelete = async (id) => {
+    if (window.confirm('Bạn có chắc chắn muốn xóa vĩnh viễn đơn hàng này?')) {
+      try {
+        await deleteOrder(id).unwrap();
+        toast.success('Đã xóa đơn hàng thành công');
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.error || err.error);
+      }
+    }
+  };
 
   return (
     <div className="container mx-auto mt-12">
@@ -53,6 +69,10 @@ const OrderList = () => {
                                 <Link to={`/order/${order._id}`}>
                                     <button className="bg-blue-400 text-white py-2 px-3 rounded">Xem chi tiết</button>
                                 </Link>
+                            </td>
+
+                            <td>
+                                <button onClick={() => handleDelete(order._id)} className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 ml-2">Xóa</button>
                             </td>
                         </tr>
                     ))}

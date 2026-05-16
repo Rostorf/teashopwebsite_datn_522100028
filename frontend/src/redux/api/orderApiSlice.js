@@ -58,6 +58,13 @@ export const orderApiSlice = apiSlice.injectEndpoints({
             })
         }),
 
+        deleteOrder: builder.mutation({
+            query: (orderId) => ({
+                url: `${ORDERS_URL}/${orderId}`,
+                method: 'DELETE',
+            }),
+        }),
+
 
         getTotalOrders: builder.query({
             query: () => `${ORDERS_URL}/total-orders`
@@ -83,6 +90,7 @@ export const {
     useGetOrderDetailsQuery,
     useCreateVnpayUrlMutation,
     useVerifyVnpayReturnMutation,
+    useDeleteOrderMutation,
     useGetMyOrdersQuery,
     useDeliverOrderMutation,
     usePayOrderMutation,

@@ -306,5 +306,20 @@ const verifyVnpayReturn = async (req, res) => {
 };
 
 //Delete Orders
+const deleteOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
 
-export { createOrder, getAllOrders, getUserOrders, countTotalOrders, calculateTotalSales, calculateTotalSalesByDate, findOrderById, markOrderAsPaid, markOrderAsDelivered, createVnpayUrl, verifyVnpayReturn }
+    if (order) {
+      await Order.findByIdAndDelete(req.params.id);
+      res.json({ message: "Đã xóa đơn hàng thành công" });
+    } else {
+      res.status(404);
+      throw new Error("Không tìm thấy đơn hàng");
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+export { createOrder, getAllOrders, getUserOrders, countTotalOrders, calculateTotalSales, calculateTotalSalesByDate, findOrderById, markOrderAsPaid, markOrderAsDelivered, createVnpayUrl, verifyVnpayReturn, deleteOrder }

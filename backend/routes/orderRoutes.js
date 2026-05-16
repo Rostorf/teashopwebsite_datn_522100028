@@ -12,7 +12,8 @@ import {
     markOrderAsPaid,
     markOrderAsDelivered,
     createVnpayUrl,
-    verifyVnpayReturn
+    verifyVnpayReturn,
+    deleteOrder
 } from '../controllers/orderController.js'
 
 import { authenticate, authorizeAdmin } from '../middlewares/authMiddleware.js'
@@ -30,6 +31,7 @@ router.route('/vnpay-return').put(authenticate, verifyVnpayReturn);
 router.route('/:id').get(authenticate, findOrderById)
 router.route('/:id/pay').put(authenticate, markOrderAsPaid);
 router.route('/:id/deliver').put(authenticate, authorizeAdmin, markOrderAsDelivered)
+router.route('/:id').delete(authenticate, authorizeAdmin, deleteOrder);
 
 
 export default router;

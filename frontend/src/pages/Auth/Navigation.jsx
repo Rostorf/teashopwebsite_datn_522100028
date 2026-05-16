@@ -38,7 +38,7 @@ const Navigation = () => {
 
   return (
     <div className="w-full absolute top-0 left-0 z-20">
-        <div className="flex items-center justify-between py-6 px-[13rem] w-full font-medium bg-slate-50 fixed">
+        <div className="flex items-center justify-between py-6 px-[7rem] w-full font-medium bg-slate-50 fixed">
 
             <NavLink to="/">
                 <img src={assets.logo} className="w-40 mt-1" alt="" />
