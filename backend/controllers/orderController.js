@@ -322,4 +322,28 @@ const deleteOrder = async (req, res) => {
   }
 }
 
-export { createOrder, getAllOrders, getUserOrders, countTotalOrders, calculateTotalSales, calculateTotalSalesByDate, findOrderById, markOrderAsPaid, markOrderAsDelivered, createVnpayUrl, verifyVnpayReturn, deleteOrder }
+const requestCancelOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (order) {
+      // Nếu đơn hàng đã giao thì không cho phép yêu cầu hủy nữa
+      if (order.isDelivered) {
+        return res.status(400).json({ error: "Đơn hàng đã được giao, không thể yêu cầu hủy!" });
+      }
+
+      order.isCancelRequested = true;
+      order.cancelRequestedAt = Date.now();
+
+      const updatedOrder = await order.save();
+      res.json(updatedOrder);
+    } else {
+      res.status(404);
+      throw new Error("Không tìm thấy đơn hàng");
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { createOrder, getAllOrders, getUserOrders, countTotalOrders, calculateTotalSales, calculateTotalSalesByDate, findOrderById, markOrderAsPaid, markOrderAsDelivered, createVnpayUrl, verifyVnpayReturn, deleteOrder, requestCancelOrder }

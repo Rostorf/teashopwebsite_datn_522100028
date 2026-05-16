@@ -75,6 +75,15 @@ const orderSchema = mongoose.Schema({
         required: true,
         default: false
     },
+
+    isCancelRequested: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    cancelRequestedAt: {
+        type: Date,
+    },
 }, {timestamps: true})
 
 const Order = mongoose.model('Order', orderSchema)

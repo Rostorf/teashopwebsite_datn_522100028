@@ -10,6 +10,7 @@ import {
   usePayOrderMutation,
   useCreateVnpayUrlMutation,
   useVerifyVnpayReturnMutation,
+  useRequestCancelOrderMutation,
 } from "../../redux/api/orderApiSlice";
 
 const Order = () => {
@@ -28,6 +29,7 @@ const Order = () => {
   
   const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
   const [payOrder, { isLoading: loadingPayTwo }] = usePayOrderMutation();
+  const [requestCancel, { isLoading: loadingRequestCancel }] = useRequestCancelOrderMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
 
@@ -81,6 +83,18 @@ const Order = () => {
     }
   };
 
+  const requestCancelHandler = async () => {
+    if (window.confirm("Bạn có chắc chắn muốn gửi yêu cầu hủy đơn hàng này không?")) {
+      try {
+        await requestCancel(orderId).unwrap();
+        toast.success("Đã gửi yêu cầu hủy đơn hàng thành công!");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.error || err.error);
+      }
+    }
+  };
+
   return isLoading ? (
     <Loader />
   ) : error ? (
@@ -109,10 +123,10 @@ const Order = () => {
                     <tr key={index}>
                       <td className="p-2">
                         <img
-  src={item.images && item.images.length > 0 ? item.images[0] : item.image}
-  alt={item.name}
-  className="w-16 h-16 object-cover" // Giữ nguyên class hiện tại của bạn
-/>
+                          src={item.images && item.images.length > 0 ? item.images[0] : item.image}
+                          alt={item.name}
+                          className="w-16 h-16 object-cover"
+                        />
                       </td>
                       <td className="p-2">
                         <Link to={`/product/${item.product}`}>{item.name}</Link>
@@ -226,6 +240,26 @@ const Order = () => {
             >
               Đánh dấu đơn hàng đã được giao
             </button>
+          </div>
+        )}
+
+        {!order.isDelivered && !order.isCancelRequested && (
+        <button onClick={requestCancelHandler} className="w-full mt-4 bg-yellow-600 text-white py-3 rounded-lg font-bold hover:bg-yellow-700 transition-colors" disabled={loadingRequestCancel} >
+          {loadingRequestCancel ? "Đang xử lý..." : "Yêu cầu hủy đơn hàng"}
+        </button>
+      )}
+
+        {order.isDelivered ? (
+          <div className="p-3 bg-green-100 text-green-800 rounded-lg font-semibold">
+            Đã giao hàng
+          </div>
+        ) : order.isCancelRequested ? (
+          <div className="p-3 bg-yellow-100 text-yellow-800 rounded-lg font-semibold">
+            Trạng thái: Yêu cầu hủy (Đang chờ Admin duyệt)
+          </div>
+        ) : (
+          <div className="p-3 bg-red-100 text-red-800 rounded-lg font-semibold">
+            Trạng thái: Chưa giao hàng
           </div>
         )}
       </div>

@@ -38,6 +38,8 @@ const OrderList = () => {
                         <th className="text-left pl-1">Tổng</th>
                         <th className="text-left pl-1">Thanh toán</th>
                         <th className="text-left pl-1">Tình trạng</th>
+                        <th className="text-left pl-1">Hành động</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -59,9 +61,11 @@ const OrderList = () => {
                             </td>
                             <td className="py-2">
                                 {order.isDelivered ? (
-                                    <p className="p-1 text-center bg-green-400 w-[6rem] rounded-full text-white">Đã giao</p>
+                                    <p className="p-1 text-center bg-green-400 w-[7rem] rounded-full text-white">Đã giao</p>
+                                ) : order.isCancelRequested ? (
+                                    <p className="p-1 text-center bg-yellow-500 w-[8rem] rounded-full text-white">Yêu cầu hủy</p>
                                 ) : (
-                                    <p className="p-1 text-center bg-red-400 w-[6rem] rounded-full text-white">Chưa giao</p>
+                                    <p className="p-1 text-center bg-red-400 w-[7rem] rounded-full text-white">Chưa giao</p>
                                 )}
                             </td>
 

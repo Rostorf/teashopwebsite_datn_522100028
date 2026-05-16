@@ -65,6 +65,13 @@ export const orderApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
+        requestCancelOrder: builder.mutation({
+            query: (orderId) => ({
+                url: `${ORDERS_URL}/${orderId}/request-cancel`,
+                method: 'PUT',
+            }),
+        }),
+
 
         getTotalOrders: builder.query({
             query: () => `${ORDERS_URL}/total-orders`
@@ -91,6 +98,7 @@ export const {
     useCreateVnpayUrlMutation,
     useVerifyVnpayReturnMutation,
     useDeleteOrderMutation,
+    useRequestCancelOrderMutation,
     useGetMyOrdersQuery,
     useDeliverOrderMutation,
     usePayOrderMutation,
