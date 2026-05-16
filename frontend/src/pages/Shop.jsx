@@ -13,6 +13,7 @@ const Shop = () => {
     const {categories, products, checked} = useSelector((state) => state.shop)
 
     const categoriesQuery = useFetchCategoriesQuery()
+    const [minPriceFilter, setMinPriceFilter] = useState('');
     const [priceFilter, setPriceFilter] = useState('')
 
     const { search } = useLocation();
@@ -22,6 +23,8 @@ const Shop = () => {
     const filteredProductsQuery = useGetFilteredProductsQuery({
         checked,
         keyword,
+        maxPrice: priceFilter,
+        minPrice: minPriceFilter,
     })
 
     useEffect(() => {
@@ -47,15 +50,19 @@ const Shop = () => {
             if (!filteredProductsQuery.isLoading) {
                 //Filter products based on checked categories and price filter
                 const filteredProducts = filteredProductsQuery.data.filter((product) => {
-                    if (priceFilter === '') return true;
+                    // if (priceFilter === '') return true;
                     
+                    const productPrice = product.price;
                     const maxPrice = parseInt(priceFilter, 10);
-                    // Filter products below or equal to the maximum price
-                    return isNaN(maxPrice) ? true : product.price <= maxPrice;
+                    const minPrice = parseInt(minPriceFilter, 10);
+
+                    const meetsMaxPrice = isNaN(maxPrice) || maxPrice === 0 ? true : productPrice <= maxPrice;
+                    const meetsMinPrice = isNaN(minPrice) || minPrice === 0 ? true : productPrice >= minPrice;
+                    return meetsMaxPrice && meetsMinPrice;
                 })
                 dispatch(setProducts(filteredProducts));
             }
-    }, [checked, filteredProductsQuery.data, dispatch, priceFilter])
+    }, [checked, filteredProductsQuery.data, dispatch, priceFilter, minPriceFilter])
 
     const handleCheck = (value, id) => {
         const updatedChecked = value ? [...checked, id] : checked.filter((c) => c !== id)
@@ -87,10 +94,14 @@ const Shop = () => {
                     </div>
 
                         <h2 className="h4 text-center py-2 rounded-full mb-2 bg-green-500 text-white">
-                            Lọc theo giá tối đa
+                            Lọc theo giá
                         </h2>
+                        <div className="p-5 w-[15rem] mt-5">
+                            <input type="text" placeholder="Nhập giá tối thiểu" value={minPriceFilter} onChange={(e) => {setMinPriceFilter(e.target.value); dispatch(setMinPriceFilter(e.target.value)); }} 
+                            className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-green-300" />
+                        </div>
                         <div className="p-5 w-[15rem]">
-                            <input type="text" placeholder="Nhập giá" value={priceFilter} onChange={handlePriceChange} className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-green-300" />
+                            <input type="text" placeholder="Nhập giá tối đa" value={priceFilter} onChange={handlePriceChange} className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-green-300" />
                         </div>
                         <div className="p-5 pt-0">
                             <button className="w-full border my-4 text-center p-1 rounded-full bg-green-500 text-white" onClick={() => window.location.reload()}>

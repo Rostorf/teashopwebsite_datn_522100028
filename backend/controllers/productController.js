@@ -180,11 +180,22 @@ const fetchNewProducts = asyncHandler(async(req, res) => {
 
 const filterProducts = asyncHandler(async(req, res) => {
     try {
-        const {checked, radio, keyword} = req.body
+        const {checked, radio, keyword, minPrice, maxPrice} = req.body
 
         let args = {}
         if(checked.length > 0) args.category = checked
-        if(checked.radio > 0) args.price = {$gte: radio[0], $lte: radio[1]}
+
+        if (minPrice || maxPrice) {
+        args.price = {};
+        
+            if (minPrice) {
+                args.price.$gte = Number(minPrice); // Greater than or equal to Minimum Price
+            }
+            
+            if (maxPrice) {
+                args.price.$lte = Number(maxPrice); // Less than or equal to Maximum Price
+            }
+        }
 
         if (keyword) 
         {

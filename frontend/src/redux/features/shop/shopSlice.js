@@ -4,6 +4,8 @@ const initialState = {
     categories: [],
     products: [],
     checked: [],
+    priceFilter: "",
+    minPriceFilter: "",
 }
 
 const shopSlice = createSlice({
@@ -21,7 +23,13 @@ const shopSlice = createSlice({
         },
         setRadio: (state, action) => {
             state.radio = action.payload
-        }
+        },
+        setPriceFilter: (state, action) => {
+            state.priceFilter = action.payload;
+        },
+        setMinPriceFilter: (state, action) => {
+            state.minPriceFilter = action.payload;
+        },
     }
 })
 
