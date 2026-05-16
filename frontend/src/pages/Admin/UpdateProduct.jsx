@@ -22,6 +22,7 @@ const UpdateProduct = () => {
     const [category, setCategory] = useState(productData?.category || "")
     const [quantity, setQuantity] = useState(productData?.quantity || "")
     const [stock, setStock] = useState(productData?.countInStock)
+    const [expiryDate, setExpiryDate] = useState(productData?.expiryDate || "");
 
     const navigate = useNavigate()
 
@@ -39,6 +40,7 @@ const UpdateProduct = () => {
             setQuantity(productData.quantity)
             setImages(productData.image || [])
             setStock(productData.countInStock)
+            setExpiryDate(productData.expiryDate || "");
         }
     }, [productData]);
 
@@ -82,6 +84,7 @@ const UpdateProduct = () => {
             formData.append('category', category)
             formData.append('quantity', quantity)
             formData.append('countInStock', stock)
+            formData.append('expiryDate', expiryDate);
 
             const {data} = await updateProduct({productId: params.id, formData});
 
@@ -169,7 +172,7 @@ const UpdateProduct = () => {
                     <label htmlFor="" className="my-5">Mô tả</label> <br />
                     <textarea type="text" className="p-2 mb-3 border rounded-lg w-[95%]" value={description} onChange={e => setDescription(e.target.value)}></textarea>
 
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                         <div>
                             <label htmlFor="name block">Số lượng tồn kho</label> <br />
                             <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg" value={stock} onChange={e => setStock(e.target.value)} />
@@ -184,6 +187,11 @@ const UpdateProduct = () => {
                                     </option>
                                 ))}
                             </select>
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="expiryDate">Hạn sử dụng</label>
+                                <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="" />
                         </div>
                     </div>
                     <div>

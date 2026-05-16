@@ -109,6 +109,9 @@ const ProductDetails = () => {
                             <h1 className="flex items-center mb-6">
                                 <StarBorderOutlinedIcon className="mr-2"/> Lượt sao: {product.rating} 
                             </h1>
+                            <h1 className="flex items-center mb-6">
+                                <AccessTimeIcon className="mr-2" /> Hạn sử dụng: {" "} {product.expiryDate}
+                            </h1>
                         </div>
                     </div>
                     <div className="flex justify-between flex-wrap">

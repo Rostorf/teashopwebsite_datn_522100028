@@ -15,6 +15,7 @@ const ProductList = () => {
     const [price, setPrice] = useState('')
     const [category, setCategory] = useState('')
     const [quantity, setQuantity] = useState('')
+    const [expiryDate, setExpiryDate] = useState("")
     const [stock, setStock] = useState(0)
     const navigate = useNavigate()
 
@@ -34,6 +35,7 @@ const ProductList = () => {
             productData.append('category', category)
             productData.append('quantity', quantity)
             productData.append('countInStock', stock)
+            productData.append("expiryDate", expiryDate);
 
             const {data} = await createProduct(productData)
 
@@ -114,7 +116,7 @@ const ProductList = () => {
                     <label htmlFor="" className="my-5">Mô tả</label> <br />
                     <textarea type="text" className="p-2 mb-3 border rounded-lg w-[95%]" value={description} onChange={e => setDescription(e.target.value)}></textarea>
 
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                         <div>
                             <label htmlFor="name block">Số lượng tồn kho</label> <br />
                             <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg" value={stock} onChange={e => setStock(e.target.value)} />
@@ -130,7 +132,12 @@ const ProductList = () => {
                                 ))}
                             </select>
                         </div>
+
                     </div>
+                        <div className="mb-3">
+                            <label htmlFor="expiryDate">Hạn sử dụng</label>
+                                <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="" />
+                        </div>
                     <button onClick={handleSubmit} className="py-4 px-10 mt-5 rounded-lg font-bold bg-green-500">Thêm sản phẩm</button>
                 </div>
             </div>

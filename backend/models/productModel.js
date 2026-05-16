@@ -18,6 +18,7 @@ const productSchema = mongoose.Schema({
     quantity: {type: String, required: true},
     category:{type: ObjectId, ref: "Category", required: true},
     description: {type: String, required: true},
+    expiryDate: { type: String, required: true },
     reviews: [reviewSchema],
     rating: {type: Number, required: true, default: 0},
     numReviews: {type: Number, required: true, default: 0},
