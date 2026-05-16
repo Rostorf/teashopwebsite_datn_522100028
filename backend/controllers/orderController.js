@@ -74,6 +74,15 @@ const createOrder = async(req, res) => {
             totalPrice
         })
 
+        for (const item of dbOrderItems) {
+            const product = await Product.findById(item.product);
+            if (product) {
+                // Deduct but prevent going below 0
+                product.countInStock = Math.max(0, product.countInStock - item.qty); 
+                await product.save();
+            }
+        }
+
         const createdOrder = await order.save()
         res.status(201).json(createdOrder);
 
