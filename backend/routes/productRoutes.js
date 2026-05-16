@@ -12,6 +12,7 @@ import {
     addProductReview,
     fetchTopProducts,
     fetchNewProducts,
+    fetchTopSellingProducts,
     filterProducts,
  } from "../controllers/productController.js";
 import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
@@ -25,6 +26,7 @@ router.route('/:id/reviews').post(authenticate, checkId, addProductReview);
 
 router.get('/top', fetchTopProducts);
 router.get('/new', fetchNewProducts);
+router.get("/top-selling", fetchTopSellingProducts);
 
 router.route('/:id')
 .get(fetchProductById)

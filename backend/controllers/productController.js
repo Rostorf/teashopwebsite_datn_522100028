@@ -178,6 +178,17 @@ const fetchNewProducts = asyncHandler(async(req, res) => {
     }
 })
 
+const fetchTopSellingProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ sold: -1 }).limit(4);
+  
+  if (products) {
+    res.json(products);
+  } else {
+    res.status(404);
+    throw new Error("Products not found");
+  }
+});
+
 const filterProducts = asyncHandler(async(req, res) => {
     try {
         const {checked, radio, keyword, minPrice, maxPrice} = req.body
@@ -210,4 +221,4 @@ const filterProducts = asyncHandler(async(req, res) => {
     }
 })
 
-export { addProduct, updateProductDetails, deleteProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview, fetchTopProducts, fetchNewProducts, filterProducts };
+export { addProduct, updateProductDetails, deleteProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview, fetchTopProducts, fetchNewProducts, fetchTopSellingProducts, filterProducts };

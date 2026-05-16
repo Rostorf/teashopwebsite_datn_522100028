@@ -1,15 +1,18 @@
 import { Link, useParams } from "react-router-dom"
 import { useGetProductsQuery } from "../redux/api/productApiSlice"
+import { useGetTopSellingProductsQuery } from '../redux/api/productApiSlice';
 import Loader from "../components/Loader"
 import Banner from "../components/Banner"
 import MoreInfo from "../components/MoreInfo"
 import FeaturedProducts from "../components/FeaturedProducts"
 import Message from "../components/Message"
 import Product from "./Products/Product"
+import SmallProduct from "./Products/SmallProduct";
 
 const Home = () => {
   const {keyword} = useParams()
   const {data, isLoading, isError} = useGetProductsQuery({ keyword });
+  const { data: topSellingProducts, isLoading: loading, isError: error } = useGetTopSellingProductsQuery();
   return (
     <>
       <div>
@@ -36,18 +39,43 @@ const Home = () => {
             <div className="flex justify-center flex-wrap mt-[2rem]">
 
               {data.products.map((product) => (
-                <div key={product._id}>
+                <div key={product._id} className="flex justify-center hover:scale-105 transition-transform duration-300">
                   <Product product={product} />
                 </div>
               ))}
 
             </div>
           </div>
-          
+
           </>
         )} 
       </div>
+
+      <div className="container mx-auto px-4 mt-24 mb-20">
+        
+        <h1 className="text-[3rem] mb-16 text-center">
+          Top Sản phẩm bán chạy nhất!
+        </h1>
+        
+        {loading ? (  // Changed from isLoading to loading
+          <Loader />
+        ) : error ? ( // Changed from isError to error
+          <Message variant="danger">
+            Lỗi hiện sản phẩm
+          </Message>
+        ) : (
+          <div className="flex justify-center flex-wrap mt-[2rem]">
+            {topSellingProducts?.map((product) => (
+              <div key={product._id} className="flex justify-center hover:scale-105 transition-transform duration-300">
+                <Product product={product} /> 
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
     </>
+    
   )
 }
 

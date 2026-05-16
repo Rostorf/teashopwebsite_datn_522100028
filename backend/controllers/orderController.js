@@ -199,6 +199,13 @@ const markOrderAsDelivered = async(req, res) => {
             order.isDelivered = true;
             order.deliveredAt = Date.now()
 
+            for (const item of order.orderItems) {
+                await Product.findByIdAndUpdate(
+                    item.product, // Assuming item.product contains the ObjectId of the Product
+                    { $inc: { sold: item.qty } }
+                );
+            }
+
             const updatedOrder = await order.save()
             res.json(updatedOrder)
         } else {
