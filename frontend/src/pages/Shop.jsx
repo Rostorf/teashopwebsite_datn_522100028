@@ -30,14 +30,28 @@ const Shop = () => {
         }
     }, [categoriesQuery.data, dispatch])
 
+    // useEffect(() => {
+    //         if (!filteredProductsQuery.isLoading) {
+    //             //Filter products based on checked categories and price filter
+    //             const filteredProducts = filteredProductsQuery.data.filter((product) => {
+    //                 //Check if product price includes the entered price filter value
+    //                 return (
+    //                     product.price.toString().includes(priceFilter) || product.price === parseInt(priceFilter, 10)
+    //                 )
+    //             })
+    //             dispatch(setProducts(filteredProducts));
+    //         }
+    // }, [checked, filteredProductsQuery.data, dispatch, priceFilter])
+
     useEffect(() => {
             if (!filteredProductsQuery.isLoading) {
                 //Filter products based on checked categories and price filter
                 const filteredProducts = filteredProductsQuery.data.filter((product) => {
-                    //Check if product price includes the entered price filter value
-                    return (
-                        product.price.toString().includes(priceFilter) || product.price === parseInt(priceFilter, 10)
-                    )
+                    if (priceFilter === '') return true;
+                    
+                    const maxPrice = parseInt(priceFilter, 10);
+                    // Filter products below or equal to the maximum price
+                    return isNaN(maxPrice) ? true : product.price <= maxPrice;
                 })
                 dispatch(setProducts(filteredProducts));
             }
@@ -73,7 +87,7 @@ const Shop = () => {
                     </div>
 
                         <h2 className="h4 text-center py-2 rounded-full mb-2 bg-green-500 text-white">
-                            Lọc theo giá
+                            Lọc theo giá tối đa
                         </h2>
                         <div className="p-5 w-[15rem]">
                             <input type="text" placeholder="Nhập giá" value={priceFilter} onChange={handlePriceChange} className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-green-300" />

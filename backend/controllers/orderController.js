@@ -305,4 +305,6 @@ const verifyVnpayReturn = async (req, res) => {
     }
 };
 
+//Delete Orders
+
 export { createOrder, getAllOrders, getUserOrders, countTotalOrders, calculateTotalSales, calculateTotalSalesByDate, findOrderById, markOrderAsPaid, markOrderAsDelivered, createVnpayUrl, verifyVnpayReturn }

@@ -46,22 +46,22 @@ const Navigation = () => {
 
             <ul className="hidden mt-3 sm:flex gap-7 text-sm text-gray-700">
 
-                <NavLink to="/" className="flex flex-col items-center gap-1">
+                <NavLink to="/" className="flex flex-col items-center gap-1 px-[6rem]">
                     <p className='font-mono font-bold text-base'>TRANG CHỦ</p>
                     <hr className="w-2/4 border-none h-[1.5px] bg-grey-700" />
                 </NavLink>
 
-                <NavLink to="/shop" className="flex flex-col items-center gap-1">
+                <NavLink to="/shop" className="flex flex-col items-center gap-1 px-[6rem]">
                     <p className='font-mono font-bold text-base'>SẢN PHẨM</p>
                     <hr className="w-2/4 border-none h-[1.5px] bg-grey-700" />
                 </NavLink>
 
-                <NavLink to="/about" className="flex flex-col items-center gap-1">
+                <NavLink to="/about" className="flex flex-col items-center gap-1 px-[6rem]">
                     <p className='font-mono font-bold text-base'>GIỚI THIỆU</p>
                     <hr className="w-2/4 border-none h-[1.5px] bg-grey-700" />
                 </NavLink>
 
-                <NavLink to="/contact" className="flex flex-col items-center gap-1">
+                <NavLink to="/contact" className="flex flex-col items-center gap-1 px-[6rem]">
                     <p className='font-mono font-bold text-base'>LIÊN LẠC</p>
                     <hr className="w-2/4 border-none h-[1.5px] bg-grey-700" />
                 </NavLink>
