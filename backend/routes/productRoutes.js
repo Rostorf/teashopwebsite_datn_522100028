@@ -10,6 +10,7 @@ import {
     fetchProductById,
     fetchAllProducts,
     addProductReview,
+    deleteProductReview,
     fetchTopProducts,
     fetchNewProducts,
     fetchTopSellingProducts,
@@ -22,7 +23,7 @@ router.route('/').get(fetchProducts)
 .post(authenticate, authorizeAdmin, formidable(), addProduct);
 
 router.route('/allproducts').get(fetchAllProducts);
-router.route('/:id/reviews').post(authenticate, checkId, addProductReview);
+router.route('/:id/reviews').post(authenticate, checkId, addProductReview).delete(authenticate, checkId, deleteProductReview);
 router.get("/:id/has-purchased", authenticate, async (req, res) => {
   const hasPurchased = await Order.findOne({
     user: req.user._id,

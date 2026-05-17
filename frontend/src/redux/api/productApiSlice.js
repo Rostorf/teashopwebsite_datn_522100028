@@ -28,6 +28,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 url: `${PRODUCT_URL}/${productId}`
             }),
             keepUnusedDataFor:5,
+            providesTags: ["Product"],
         }),
 
         createProduct: builder.mutation({
@@ -71,6 +72,15 @@ export const productApiSlice = apiSlice.injectEndpoints({
             })
         }),
 
+        deleteReview: builder.mutation({
+            query: (data) => ({
+                url: `${PRODUCT_URL}/${data.productId}/reviews`,
+                method: 'DELETE',
+                body: { reviewId: data.reviewId }
+            }),
+            invalidatesTags: ["Product"], // Tells Redux to fetch fresh product data
+        }),
+
         getTopProducts: builder.query({
             query: () => `${PRODUCT_URL}/top`,
             keepUnusedDataFor: 5,
@@ -104,6 +114,7 @@ export const {
     useUpdateProductMutation,
     useDeleteProductMutation,
     useCreateReviewMutation,
+    useDeleteReviewMutation,
     useGetTopProductsQuery,
     useGetNewProductsQuery,
     useGetTopSellingProductsQuery,

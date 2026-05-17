@@ -174,6 +174,51 @@ const addProductReview = asyncHandler(async(req, res) => {
     }
 })
 
+const deleteProductReview = asyncHandler(async(req, res) => {
+    try {
+        const { reviewId } = req.body; 
+        const product = await Product.findById(req.params.id);
+
+        if (product) {
+            // Find the review's index
+            const reviewIndex = product.reviews.findIndex(
+                (r) => r._id.toString() === reviewId
+            );
+
+            if (reviewIndex !== -1) {
+                const review = product.reviews[reviewIndex];
+                if (review.user.toString() !== req.user._id.toString() && !req.user.isAdmin) {
+                    res.status(403);
+                    throw new Error("Không có quyền xóa đánh giá này");
+                }
+
+                // Remove the review from the array
+                product.reviews.splice(reviewIndex, 1);
+                
+                // Recalculate numReviews and overall rating
+                product.numReviews = product.reviews.length;
+                if (product.numReviews > 0) {
+                    product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+                } else {
+                    product.rating = 0;
+                }
+
+                await product.save();
+                res.status(200).json({ message: "Xóa đánh giá thành công" });
+            } else {
+                res.status(404);
+                throw new Error("Không tìm thấy đánh giá");
+            }
+        } else {
+            res.status(404);
+            throw new Error("Không tìm thấy sản phẩm");
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error.message);
+    }
+});
+
 const fetchTopProducts = asyncHandler(async(req, res) => {
     try {
         const products = await Product.find({}).sort({rating: -1}).limit(4)
@@ -237,4 +282,4 @@ const filterProducts = asyncHandler(async(req, res) => {
     }
 })
 
-export { addProduct, updateProductDetails, deleteProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview, fetchTopProducts, fetchNewProducts, fetchTopSellingProducts, filterProducts };
+export { addProduct, updateProductDetails, deleteProduct, fetchProducts, fetchProductById, fetchAllProducts, addProductReview, deleteProductReview, fetchTopProducts, fetchNewProducts, fetchTopSellingProducts, filterProducts };

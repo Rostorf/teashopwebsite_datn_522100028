@@ -1,17 +1,30 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import Ratings from "./Ratings"
-import { useGetTopProductsQuery } from "../../redux/api/productApiSlice"
+import { useGetTopProductsQuery, useDeleteReviewMutation } from "../../redux/api/productApiSlice"
 import SmallProduct from "./SmallProduct"
 import Loader from "../../components/Loader"
+import { toast } from "react-toastify"
 
 const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, setRating, comment, setComment, product, hasPurchasedProduct}) => {
     const {data, isLoading} = useGetTopProductsQuery()
     const [activeTab, setActiveTab] = useState(1)
+    const [deleteReview] = useDeleteReviewMutation();
 
     if (isLoading) {
         return <Loader />
     }
+
+    const handleDeleteReview = async (productId, reviewId) => {
+        if (window.confirm("Bạn có chắc chắn muốn xóa đánh giá này?")) {
+            try {
+                await deleteReview({ productId, reviewId }).unwrap();
+                toast.success("Xóa đánh giá thành công");
+            } catch (error) {
+                toast.error(error?.data?.error || error.message);
+            }
+        }
+    };
 
     const handleTabClick = (tabNumber) => {
         setActiveTab(tabNumber)
@@ -77,7 +90,16 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
 
                 <div>
                     {product.reviews.map((review) => (
-                        <div key={review._id} className="bg-[#ededed] p-4 rounded-lg xl:ml-[2rem] sm:ml-[0rem] xl:w-[50rem] sm:w-[24rem] mb-[3rem]">
+                        <div key={review._id} className="bg-[#ededed] p-4 rounded-lg xl:ml-[2rem] sm:ml-[0rem] xl:w-[50rem] sm:w-[24rem] mb-[3rem] relative">
+                            {userInfo && (userInfo.isAdmin || userInfo._id === review.user) && (
+                                <button 
+                                    onClick={() => handleDeleteReview(product._id, review._id)}
+                                    className="absolute bottom-2 right-4 text-red-500 font-bold text-xl hover:text-red-700 transition-colors"
+                                    title="Xóa đánh giá"
+                                >
+                                    X
+                                </button>
+                            )}
                             <div className="flex justify-between">
                                 <strong className="">
                                     {review.name}
