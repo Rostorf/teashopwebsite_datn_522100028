@@ -16,6 +16,7 @@ import HeartIcon from "./HeartIcon"
 import Rating from "./Ratings"
 import ProductTabs from "./ProductTabs"
 import PublicIcon from '@mui/icons-material/Public';
+import SellIcon from '@mui/icons-material/Sell';
 import { addToCart } from "../../redux/features/cart/cartSlice"
 import { useEffect } from "react"
 
@@ -95,6 +96,9 @@ const ProductDetails = () => {
                         <div className="one">
                             <h1 className="flex items-center mb-6">
                                 <InventoryIcon className="mr-2" /> {product.countInStock > 0 ? `Còn hàng: ${product.countInStock}` : 'Hết hàng'}
+                            </h1>
+                            <h1 className="flex items-center mb-6 w-[20rem]">
+                                <SellIcon className="mr-2" /> Đã bán: {product.sold || 0}
                             </h1>
                             <h1 className="flex items-center mb-6 w-[20rem]">
                                 <PublicIcon className="mr-2" /> Xuất xứ: {product.quantity}
