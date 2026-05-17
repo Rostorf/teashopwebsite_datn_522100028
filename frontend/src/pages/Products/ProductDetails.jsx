@@ -6,7 +6,8 @@ import { useGetProductDetailsQuery, useCreateReviewMutation } from "../../redux/
 import Loader from "../../components/Loader"
 import Message from "../../components/Message"
 import moment from "moment"
-import 'moment/locale/vi';
+import 'moment/dist/locale/vi';
+moment.locale('vi')
 import InventoryIcon from '@mui/icons-material/Inventory';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
