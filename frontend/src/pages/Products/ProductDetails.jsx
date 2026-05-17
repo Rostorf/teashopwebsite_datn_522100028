@@ -19,6 +19,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import SellIcon from '@mui/icons-material/Sell';
 import { addToCart } from "../../redux/features/cart/cartSlice"
 import { useEffect } from "react"
+import { useGetMyOrdersQuery } from "../../redux/api/orderApiSlice";
 
 moment.locale('vi')
 
@@ -32,11 +33,16 @@ const ProductDetails = () => {
     const [comment, setComment] = useState('')
 
     const { data: product, isLoading, refetch, error } = useGetProductDetailsQuery(productId)
+    const { data: orders, isLoading: loadingOrders } = useGetMyOrdersQuery();
     const {userInfo} = useSelector(state => state.auth)
     
     const [createReview, {isLoading: loadingProductReview}] = useCreateReviewMutation()
 
     const [mainImage, setMainImage] = useState("");
+
+    const hasPurchasedProduct = orders?.some(order => 
+        order.isPaid && order.isDelivered && order.orderItems.some(item => item.product === productId)
+    );
 
   useEffect(() => {
     if (product && product.images && product.images.length > 0) {
@@ -144,7 +150,7 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 <div className="mt-[5rem] container flex flex-wrap items-start justify-between ml-[10rem]">
-                    <ProductTabs loadingProductReview={loadingProductReview} userInfo={userInfo} submitHandler={submitHandler} rating={rating} setRating={setRating} comment={comment} setComment={setComment} product={product} />
+                    <ProductTabs loadingProductReview={loadingProductReview} userInfo={userInfo} submitHandler={submitHandler} rating={rating} setRating={setRating} comment={comment} setComment={setComment} product={product} hasPurchasedProduct={hasPurchasedProduct} />
                 </div>
             </div>
             </>

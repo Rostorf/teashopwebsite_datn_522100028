@@ -5,7 +5,7 @@ import { useGetTopProductsQuery } from "../../redux/api/productApiSlice"
 import SmallProduct from "./SmallProduct"
 import Loader from "../../components/Loader"
 
-const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, setRating, comment, setComment, product}) => {
+const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, setRating, comment, setComment, product, hasPurchasedProduct}) => {
     const {data, isLoading} = useGetTopProductsQuery()
     const [activeTab, setActiveTab] = useState(1)
 
@@ -28,38 +28,45 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
         </section>
 
         <section>
-            {activeTab === 1 && (
-                <div className="mt-4">
-                    {userInfo ? (
-                        <form onSubmit={submitHandler}>
-                            <div className="my-2">
-                                <label htmlFor="rating" className="block text-xl mb-2">Đánh giá sản phẩm</label>
-                                <select id="rating" required value={rating} onChange={e => setRating(e.target.value)} className="p-2 border rounded-lg xl:w-[40rem]">
-                                    <option value="">Chọn mức đánh giá</option>
-                                    <option value="1">1 sao</option>
-                                    <option value="2">2 sao</option>
-                                    <option value="3">3 sao</option>
-                                    <option value="4">4 sao</option>
-                                    <option value="5">5 sao</option>
-                                </select>
-                            </div>
+        {activeTab === 1 && (
+          <div className="mt-4">
+            {userInfo ? (
+              hasPurchasedProduct ? (
+                <form onSubmit={submitHandler}>
+                  <div className="my-2">
+                    <label htmlFor="rating" className="block text-xl mb-2">Đánh giá sao</label>
+                    <select id="rating" value={rating} onChange={(e) => setRating(Number(e.target.value))} className="p-2 w-[12rem] rounded-lg text-black outline-none border" >
+                      <option value="">Chọn</option>
+                      <option value="1">1 - Tệ</option>
+                      <option value="2">2 - Bình thường</option>
+                      <option value="3">3 - Tốt</option>
+                      <option value="4">4 - Rất tốt</option>
+                      <option value="5">5 - Tuyệt vời</option>
+                    </select>
+                  </div>
 
-                            <div className="my-2">
-                                <label htmlFor="comment" className="blocl text-xl mb-3">
-                                    Bình luận
-                                </label>
-                                <br />
-                                <br />
-                                <textarea id="comment" rows="3" required value={comment} onChange={e => setComment(e.target.value)} className="p-2 border rounded-lg xl:w-[40rem] mb-4"></textarea>
-                            </div>
-                            <button type="submit" disabled={loadingProductReview} className="bg-green-500 text-white py-2 px-4 rounded-lg mb-20 cursor-pointer">Đánh giá</button>
-                        </form>
-                    ) : (
-                        <p>Vui lòng <Link to='/login'>đăng nhập</Link> để viết đánh giá</p>
-                    )}
+                  <div className="my-2">
+                    <label htmlFor="comment" className="block text-xl mb-2">Bình luận</label>
+                    <textarea id="comment" row="3" required value={comment} onChange={(e) => setComment(e.target.value)} className="p-2 xl:w-[40rem] lg:w-[35rem] md:w-[30rem] rounded-lg text-black outline-none border" ></textarea>
+                  </div>
+
+                  <button disabled={loadingProductReview} type="submit" className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors" > Gửi đánh giá </button>
+                </form>
+              ) : (
+                <div className="bg-yellow-100 text-yellow-800 p-4 rounded-lg max-w-md">
+                  <p className="font-semibold">Bạn chưa mua sản phẩm này!</p>
+                  <p className="text-sm mt-1">Đánh giá và bình luận chỉ khả dụng sau khi bạn đã mua sản phẩm.</p>
                 </div>
-            )} 
-        </section>
+              )
+            ) : (
+              <p>
+                Vui lòng <Link to="/login" className="text-green-500 underline">đăng nhập</Link> để đánh giá.
+              </p>
+            )}
+          </div>
+        )}
+
+      </section>
 
         <section>
             {activeTab === 2 && (

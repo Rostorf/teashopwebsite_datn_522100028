@@ -23,6 +23,14 @@ router.route('/').get(fetchProducts)
 
 router.route('/allproducts').get(fetchAllProducts);
 router.route('/:id/reviews').post(authenticate, checkId, addProductReview);
+router.get("/:id/has-purchased", authenticate, async (req, res) => {
+  const hasPurchased = await Order.findOne({
+    user: req.user._id,
+    isPaid: true,
+    orderItems: { $elemMatch: { product: req.params.id } }
+  });
+  res.json({ hasPurchased: !!hasPurchased });
+});
 
 router.get('/top', fetchTopProducts);
 router.get('/new', fetchNewProducts);

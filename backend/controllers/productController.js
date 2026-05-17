@@ -1,5 +1,6 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Product from '../models/productModel.js'
+import Order from "../models/orderModel.js";
 
 const addProduct = asyncHandler(async (req, res) => {
   try {
@@ -128,12 +129,27 @@ const addProductReview = asyncHandler(async(req, res) => {
         const product = await Product.findById(req.params.id)
 
         if (product) {
+            const hasPurchased = await Order.findOne({
+            user: req.user._id,
+            isPaid: true, // ensures they actually finalized payment
+            isDelivered: true,
+            orderItems: {
+                $elemMatch: { product: req.params.id }
+                }
+            });
+
+            if (!hasPurchased) {
+                res.status(400);
+                throw new Error("You can only review products you have already purchased.");
+            }
+
             const alreadyReviewed = product.reviews.find(r => r.user.toString() === req.user._id.toString())
 
             if (alreadyReviewed) {
                 res.status(400)
                 throw new Error("Bạn đã đánh giá sản phẩm.")
             }
+
         const review = { 
             name: req.user.username,
             rating: Number(rating),

@@ -132,12 +132,12 @@ const ProductList = () => {
                                 ))}
                             </select>
                         </div>
-
-                    </div>
                         <div className="mb-3">
                             <label htmlFor="expiryDate">Hạn sử dụng</label>
                                 <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="" />
                         </div>
+
+                    </div>
                     <button onClick={handleSubmit} className="py-4 px-10 mt-5 rounded-lg font-bold bg-green-500">Thêm sản phẩm</button>
                 </div>
             </div>
