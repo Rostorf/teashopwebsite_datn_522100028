@@ -7,7 +7,7 @@ const Chatbot = () => {
   
   // Initial greeting message
   const [messages, setMessages] = useState([
-    { sender: "ai", text: "Hello! I'm your AI Tea Sommelier 🍵. Need help finding the perfect blend?" }
+    { sender: "ai", text: "Xin chào! Tôi là chuyên gia Trà Đạo AI 🍵. Bạn cần tìm loại trà nào?" }
   ]);
 
   const toggleChat = () => setIsOpen(!isOpen);
@@ -71,11 +71,11 @@ const Chatbot = () => {
               type="text" 
               value={input} 
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about our teas..."
+              placeholder="Hỏi về các loại trà của chúng tôi..."
               className="flex-1 border rounded-l-md p-2 outline-none text-black text-sm"
             />
             <button type="submit" className="bg-green-600 hover:bg-green-700 text-white px-4 rounded-r-md transition">
-              Send
+              Gửi
             </button>
           </form>
         </div>

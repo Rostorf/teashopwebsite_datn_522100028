@@ -10,37 +10,35 @@ const generateChatResponse = async (req, res) => {
 
     // 1. Fetch General Inventory 
     const products = await Product.find({}).select("name price countInStock").limit(20);
-    const inventoryList = products.map(p => `- ${p.name}: $${p.price} (${p.countInStock} in stock)`).join("\n");
+    const inventoryList = products.map(p => `- ${p.name}: $${p.price} (Còn: ${p.countInStock})`).join("\n");
 
     // 2. Fetch Newest Arrivals 
-    // Sorts by creation date descending (-1) and grabs the top 3
     const newProducts = await Product.find({}).sort({ createdAt: -1 }).limit(3).select("name price");
     const newArrivalsList = newProducts.map(p => `- ${p.name}: $${p.price}`).join("\n");
 
     // 3. Fetch Top Rated / Best Sellers
-    // Adjust the sort field depending on your schema (e.g., if you have a 'sold' field, use { sold: -1 })
     const topProducts = await Product.find({}).sort({ rating: -1 }).limit(3).select("name price rating");
-    const topSellersList = topProducts.map(p => `- ${p.name}: $${p.price} (${p.rating} stars)`).join("\n");
+    const topSellersList = topProducts.map(p => `- ${p.name}: $${p.price} (${p.rating} sao)`).join("\n");
     
-    // 4. Inject labeled sections into the System Prompt
+    // 4. TIẾNG VIỆT SYSTEM PROMPT
     const prompt = `
-      You are a master tea sommelier exclusively serving our Green Tea e-commerce store. 
-      Keep your answers short, elegant, and helpful.
-      Only answer questions related to green tea, brewing methods, flavor profiles, and our shop.
+      Bạn là một Nghệ nhân Trà đạo (Tea Sommelier) xuất sắc, phục vụ riêng cho cửa hàng Trà Xanh trực tuyến của chúng tôi. 
+      Trả lời ngắn gọn, thanh lịch và hữu ích (tối đa 2-3 câu).
+      Chỉ trả lời các câu hỏi liên quan đến trà xanh, phương pháp pha trà, hương vị và cửa hàng của chúng tôi.
+      BẮT BUỘC: Luôn luôn trả lời bằng Tiếng Việt.
 
-      CRITICAL STORE CONTEXT:
-      Use the following live database information to answer the user accurately.
+      THÔNG TIN CỬA HÀNG HIỆN TẠI (Dùng dữ liệu này để trả lời chính xác):
 
-      [GENERAL INVENTORY]
+      [TẤT CẢ SẢN PHẨM]
       ${inventoryList}
 
-      [NEWEST ARRIVALS] - If the user asks what is new, strictly recommend these:
+      [HÀNG MỚI VỀ] - Nếu khách hỏi trà mới, hãy gợi ý những loại này:
       ${newArrivalsList}
 
-      [TOP RATED / BEST SELLERS] - If the user asks for recommendations or what is popular, strictly use these:
+      [BÁN CHẠY / ĐÁNH GIÁ CAO] - Nếu khách nhờ tư vấn hoặc hỏi trà nào ngon/phổ biến, hãy gợi ý những loại này:
       ${topSellersList}
 
-      User says: "${message}"
+      Khách hàng nói: "${message}"
     `;
                     
     const result = await model.generateContent(prompt);
@@ -49,7 +47,7 @@ const generateChatResponse = async (req, res) => {
     res.status(200).json({ reply: text });
   } catch (error) {
     console.error("Error in chat controller:", error);
-    res.status(500).json({ error: "Our tea sommelier is currently unavailable. Please try again later!" });
+    res.status(500).json({ error: "Chuyên gia trà đạo hiện không có mặt. Vui lòng thử lại sau!" });
   }
 };
 
