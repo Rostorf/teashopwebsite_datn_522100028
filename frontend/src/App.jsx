@@ -3,6 +3,7 @@ import Navigation from './pages/Auth/Navigation';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer';
+import Chatbot from './components/Chatbot';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <hr className='mt-[3rem]'/>
       <Footer/>
       </main>
+      <Chatbot />
     </div>
   )
 }

@@ -50,7 +50,7 @@ function Banner() {
             Trà chất lượng đến từ
           </h1>
           <h1 className="text-5xl md:text-7xl lg:text-8xl bg-gradient-to-r from-green-600 to-white bg-clip-text text-transparent font-inter font-bold capitalize pb-8">
-            Việt Nam
+            ROSTEA
           </h1>
           
           <p className="font-inter font-medium text-base md:text-lg max-w-2xl my-8 mx-auto px-4 text-white">
