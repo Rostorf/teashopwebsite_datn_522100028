@@ -47,7 +47,7 @@ const Chatbot = () => {
         <div className="bg-white border border-gray-300 rounded-lg shadow-2xl w-80 h-96 flex flex-col mb-4 overflow-hidden">
           {/* Header */}
           <div className="bg-green-600 text-white p-3 font-bold flex justify-between items-center">
-            <span>✨ AI Tea Sommelier</span>
+            <span>AI Tea Sommelier</span>
             <button onClick={toggleChat} className="text-xl hover:text-gray-200">&times;</button>
           </div>
           
@@ -62,7 +62,7 @@ const Chatbot = () => {
                 {msg.text}
               </div>
             ))}
-            {isLoading && <div className="text-gray-400 text-xs self-start italic">Steeping a response...</div>}
+            {isLoading && <div className="text-gray-400 text-xs self-start italic">Đang phản hồi...</div>}
           </div>
 
           {/* Input Box */}
@@ -87,7 +87,7 @@ const Chatbot = () => {
           onClick={toggleChat} 
           className="bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition font-bold flex items-center gap-2"
         >
-          💬 Ask an Expert
+          💬 Trò chuyện với Chatbot
         </button>
       )}
     </div>
