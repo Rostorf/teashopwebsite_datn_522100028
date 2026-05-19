@@ -42,6 +42,21 @@ const UserList = () => {
         setEditableUserEmail(email)
     }
 
+    const toggleAdminHandler = async (id, currentAdminStatus) => {
+        if (window.confirm(`Bạn có chắc muốn ${currentAdminStatus ? 'xóa' : 'cho'} admin người dùng này?`)) {
+            try {
+                await updateUser({
+                    userId: id,
+                    isAdmin: !currentAdminStatus,
+                }).unwrap();
+                toast.success("Cập nhật người dùng thành công");
+                refetch();
+            } catch (err) {
+                toast.error(err?.data?.message || err.error);
+            }
+        }
+    };
+
     const updateHandler = async(id) => {
         try {
             await updateUser({
@@ -110,12 +125,21 @@ const UserList = () => {
                                         </div>
                                     )}
                                 </td>
-                                <td className="px-4 py-2">
+                                {/* <td className="px-4 py-2">
                                     {user.isAdmin ? (
                                         <CheckIcon style={{color: 'green'}}/>
                                     ) : (
                                         <ClearOutlinedIcon style={{color: 'red'}}/>
                                     )}
+                                </td> */}
+                                <td className="px-4 py-2">
+                                    <button onClick={() => toggleAdminHandler(user._id, user.isAdmin)} className="p-2 rounded-full hover:bg-gray-200 transition-colors" title={user.isAdmin ? "Xóa Admin" : "Trao Admin"} >
+                                        {user.isAdmin ? (
+                                            <CheckIcon className="text-green-500 hover:text-green-700" /> 
+                                        ) : (
+                                            <ClearOutlinedIcon className="text-red-500 hover:text-red-700" />
+                                        )}
+                                    </button>
                                 </td>
                                 <td className="px-4 py-2">
                                     {!user.isAdmin && (

@@ -87,7 +87,7 @@ const Chatbot = () => {
           onClick={toggleChat} 
           className="bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition font-bold flex items-center gap-2"
         >
-          💬 Trò chuyện với Chatbot
+          💬 Tư vấn cùng Chatbot
         </button>
       )}
     </div>
