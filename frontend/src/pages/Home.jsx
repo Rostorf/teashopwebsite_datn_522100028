@@ -54,7 +54,7 @@ const Home = () => {
       <div className="container mx-auto px-4 mt-24 mb-20">
         
         <h1 className="text-[3rem] mb-16 text-center">
-          Top Sản phẩm bán chạy nhất!
+          Top Sản phẩm bán chạy nhất từ trước tới nay!
         </h1>
         
         {loading ? (  // Changed from isLoading to loading

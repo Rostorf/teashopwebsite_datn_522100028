@@ -11,6 +11,7 @@ import {
   useCreateVnpayUrlMutation,
   useVerifyVnpayReturnMutation,
   useRequestCancelOrderMutation,
+  useApproveOrderMutation,
 } from "../../redux/api/orderApiSlice";
 
 const Order = () => {
@@ -30,6 +31,7 @@ const Order = () => {
   const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
   const [payOrder, { isLoading: loadingPayTwo }] = usePayOrderMutation();
   const [requestCancel, { isLoading: loadingRequestCancel }] = useRequestCancelOrderMutation();
+  const [approveOrder, { isLoading: loadingApprove }] = useApproveOrderMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
 
@@ -94,6 +96,16 @@ const Order = () => {
       }
     }
   };
+  
+  const approveOrderHandler = async () => {
+  try {
+    await approveOrder(orderId).unwrap();
+    refetch();
+    toast.success('Đơn hàng đã được duyệt thành công');
+  } catch (err) {
+    toast.error(err?.data?.message || err.error);
+  }
+};
 
   return isLoading ? (
     <Loader />
@@ -206,11 +218,7 @@ const Order = () => {
             {loadingPay || isVerifying ? (
               <Loader />
             ) : (
-              <button
-                type="button"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 rounded transition-colors"
-                onClick={handleVnpayPayment}
-              >
+              <button type="button" className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 rounded transition-colors" onClick={handleVnpayPayment} >
                 Thang toán bằng VNPAY
               </button>
             )}
@@ -218,27 +226,27 @@ const Order = () => {
         )}
 
         {loadingPayTwo && <Loader />}
-        {userInfo && userInfo.isAdmin && !order.isPaid && !order.isDelivered && order.paymentMethod === 'COD' && (
+        {userInfo && userInfo.isAdmin && !order.isPaid && !order.isDelivered && order.isApproved && order.paymentMethod === 'COD' && (
           <div className="mt-4">
-            <button
-              type="button"
-              className="bg-red-500 hover:bg-red-600 text-white font-bold w-full py-2 rounded transition-colors"
-              onClick={payHandler}
-              >
+            <button type="button" className="bg-red-500 hover:bg-red-600 text-white font-bold w-full py-2 rounded transition-colors" onClick={payHandler} >
               Đánh dấu đơn hàng đã được thanh toán
             </button>
           </div>
         )}
 
         {loadingDeliver && <Loader />}
-        {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+        {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && order.isApproved && (
           <div className="mt-4">
-            <button
-              type="button"
-              className="bg-red-500 hover:bg-red-600 text-white font-bold w-full py-2 rounded transition-colors"
-              onClick={deliverHandler}
-            >
+            <button type="button" className="bg-red-500 hover:bg-red-600 text-white font-bold w-full py-2 rounded transition-colors" onClick={deliverHandler} >
               Đánh dấu đơn hàng đã được giao
+            </button>
+          </div>
+        )}
+        {loadingApprove && <Loader />}
+        {userInfo && userInfo.isAdmin && !order.isApproved && (
+          <div>
+            <button type="button" className="bg-cyan-500 hover:bg-cyan-600 text-white w-full rounded py-2 mt-4 font-bold" onClick={approveOrderHandler} >
+              Duyệt Đơn Hàng
             </button>
           </div>
         )}
@@ -257,10 +265,12 @@ const Order = () => {
           <div className="p-3 bg-yellow-100 text-yellow-800 rounded-lg font-semibold">
             Trạng thái: Yêu cầu hủy (Đang chờ Admin duyệt)
           </div>
-        ) : (
+        ) : order.isApproved ? (
           <div className="p-3 bg-red-100 text-red-800 rounded-lg font-semibold">
-            Trạng thái: Chưa giao hàng
+            Trạng thái: Chưa giao hàng (Đã kiểm duyệt vào lúc: {order.approvedAt.substring(0, 10)})
           </div>
+        ) : (
+          <Message variant="danger">Trạng thái: Chờ kiểm duyệt</Message>
         )}
       </div>
     </div>

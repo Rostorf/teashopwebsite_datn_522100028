@@ -21,7 +21,7 @@ const ShippingPolicy = () => {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-2">3. Phí vận chuyển</h2>
         <p>
-          - Miễn phí vận chuyển với đơn hàng từ <strong>500.000đ</strong> trở lên.<br />
+          - Tính phí vận chuyển với đơn hàng từ <strong>300.000đ</strong> trở lên.<br />
           - Đơn hàng dưới mức miễn phí sẽ tính phí theo bảng giá của đơn vị vận chuyển, được hiển thị khi thanh toán.
         </p>
       </section>

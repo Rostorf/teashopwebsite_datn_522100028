@@ -84,6 +84,15 @@ const orderSchema = mongoose.Schema({
     cancelRequestedAt: {
         type: Date,
     },
+
+    isApproved: {
+      type: Boolean,
+      required: true,
+      default: false, // Mặc định khi đặt hàng là chờ kiểm duyệt
+    },
+    approvedAt: {
+      type: Date,
+    },
 }, {timestamps: true})
 
 const Order = mongoose.model('Order', orderSchema)
